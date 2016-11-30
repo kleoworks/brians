@@ -1,0 +1,103 @@
+/*css reset*/
+* {
+    margin = 0;
+    padding = 0;
+}
+
+h1, h2, h3, p, ul, li {
+    margin: 0px;
+    padding: 0px;
+}
+
+.wrapper {
+    width: 954px;
+    margin: 0 auto;
+    background-color: rgb(28,51,93);
+    padding: 8px;
+}
+
+.header {
+    width: 954px;
+    height: 62px;
+    background-color: rgb(206,48,53);
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.header h2 {
+    color: rgb(194,215,236);
+    display: inline-block;
+    margin: 0;
+    line-height: 62px;
+    padding-left: 15px;
+}
+
+.sidenav {
+    width: 155px;
+    height: 170px;
+    margin-top: 15px;
+    background-color: rgb(41,125,140);
+    border-radius: 15px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: .75em;
+    color: rgb(194,215,236);
+    padding-top: 15px;
+    padding-left: 15px;
+
+}
+
+/*.sidenav a.home {
+    padding: 15px 15px 0px 15px;
+}*/
+
+.sidenav ul {
+    padding-left: 15px;
+}
+
+.content {
+    width: 720px;
+    height: 360px;
+    background-color: rgb(14,24,33);
+    margin:15px 0px 20px 20px;
+    padding: 20px;
+    display: inline-block;
+    border-radius: 15px;
+    font-size: .75em;
+    color: rgb(194,215,236);
+}
+
+.content h2, .content p, .content ul li {
+    margin-bottom: 8px;
+}
+
+.content ul {
+    padding-left: 18px;
+}
+
+.footer {
+    width: 954px;
+    height: 50px;
+    border-radius: 18px;
+    background-color: rgb(94,102,115);
+    color: rgb(164,191,226);
+    font-size: .75em;
+    line-height: 50px;
+}
+
+.footer p {
+    padding-left: 15px;
+}
+
+.footer a {
+    color: rgb(94,213,229);
+}
+
+
+.underline {
+    text-decoration: underline;
+    color: rgb(94,213,229);
+}
+.highlight {
+    color: rgb(89,97,253);
+}
