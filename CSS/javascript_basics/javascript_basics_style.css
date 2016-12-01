@@ -47,12 +47,12 @@ h1, h2, h3, p, ul, li {
 
 }
 
-/*.sidenav a.home {
-    padding: 15px 15px 0px 15px;
-}*/
-
 .sidenav ul {
     padding-left: 15px;
+}
+
+.none {
+    list-style: none;
 }
 
 .content {

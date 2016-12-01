@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:"Andale Mono", AndaleMono, monospace;
+    font-size: .7em;
+    color: rgb(221, 223, 212);
+}
+
+.wrapper {
+    width: 844px;
+    padding: 16px;
+    background-color: rgb(221, 223, 212);
+    margin: 0 auto;
+}
+
+.nav {
+    width: 816px;
+    height: 58px;
+    background-color: rgb(56,176,173);
+    margin-bottom: 16px;
+    padding-left: 14px;
+    padding-right: 14px;
+}
+
+.nav img {
+    margin-top: 11px;
+}
+
+.nav h1, .nav ul, .nav ul li {
+    display: inline-block;
+    line-height: 58px;
+    vertical-align: top;
+}
+
+.nav ul {
+    float: right;
+}
+
+.nav h1 {
+    color: black;
+}
+
+.nav ul li {
+    color: white;
+    text-decoration: underline;
+    padding-left: 8px;
+}
+
+
+h2, .left p {
+    margin-bottom: 12px;
+}
+
+h3, .right p {
+    margin-bottom: 10px;
+}
+
+p {
+    padding: 0px 12px 0px 12px;
+    line-height: 14px;
+}
+
+
+
+.content {
+    width: 828px;
+    padding: 16px 0px 16px 16px;
+    background-color: rgb(251,230,145);
+    margin-bottom: 6px;
+}
+
+.left {
+    width: 212px;
+    height: 459px;
+    background-color: rgb(21,63,67);
+    display: inline-block;
+    margin-right:35px;
+    padding: 12px 6px 6px 8px;
+}
+
+.right {
+    width: 567px;
+    float: right;
+}
+
+.top {
+    width: 144px;
+    height: 127px;
+    background-color: rgb(21,63,67);
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    padding: 6px;
+}
+
+.middle {
+    width: 237px;
+    height: 127px;
+    background-color: rgb(21,63,67);
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    padding: 6px;
+}
+
+.bottom {
+    width: 516px;
+    height: 127px;
+    background-color: rgb(21,63,67);
+    float: left;
+    padding: 6px;
+}
+
+.footer {
+    width: 844px;
+    height: 67px;
+    background-color: rgb(56,176,173);
+    color: black;
+    text-align: center;
+}
+
+.footer p {
+    line-height: 67px;
+}
+
+.highlight {
+    color: rgb(77,220,203);
+}
