@@ -1,0 +1,48 @@
+Short Answer Questions: Fundamentals
+What is source code?
+a software program for the computer in human readable form
+
+What makes computers so “smart”, anyway?
+nothing.  they only do what they are programmed to do.
+
+What is the purpose of a programming language?
+to allow us to write programs more easily that can then be interpreted into machine code
+
+What are 3 examples of programming languages? Why are there so many of these?
+javascript, ruby, python.
+different programs allow programmers to write specialized software to handle different things.
+
+What is a variable? Why are variables useful?
+a container for something.  more easily used and understood in the context of the program than memory locations.
+
+What is the difference between a single-equals (=) and a double-equals (==)?
+single equals assigns value to variable, double equals compares to values
+
+What is the difference between a double-equals (==) and a triple-equals (===)?
+double equals compares values, triple equals compares the type and values
+
+Why does the developer console exist?
+to debug and test javascript
+
+When we talk about “conditional” statements, what does that mean? What is an example? a conditional statement checks a condition and runs a code block if it's true.  if ( 1 > 2) { do something };  ... since 1 is not greater than 2 the code block will not run.
+
+Why would we want FOR or WHILE loops in our source code?
+to run a set a code over and over again that is based on a certain condition being true
+
+When would you use a WHILE loop, instead of a FOR loop?
+when you don't know exactly how many times you need to loop the code block for
+
+What is a function? Why would we use functions?
+a set of instructions that can be called (and reused) in the program
+
+How many values can you receive back from a function? How many values can you send in?
+you can put in as many values as you want, but functions can only return once
+
+What is an array? How many values does it hold?
+an array is a container for more than one thing
+i have no idea what the set number of values it can hold, but i'm sure it's more than i'll ever use, and it's probably determined by it's capability to index and memory space on individual computers.
+
+What is a T-diagram and why should I know how to use one?
+it helps to identify values during each stage of a loop or code block
+
+What are the two ways to comment JS code? When would you use one versus the other? single line comments with // and multi line comments with /* */
