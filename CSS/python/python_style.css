@@ -162,6 +162,7 @@ list-style: none;
     font-weight: 200;
     font-style: italic;
     padding-top: 10px;
+    color: rgb(218,181,0);
 }
 
 .about p.large {
