@@ -1,0 +1,257 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 970px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", Helvetica, sans-serif;
+}
+
+
+.wrapper {
+    background-color: rgb(26,80,118);
+}
+
+.header {
+    height: 125px;
+}
+
+.logo {
+    width: 675px;
+    display: inline-block;
+}
+
+.search {
+    width: 278px;
+    height: 92px;
+    padding-top: 8px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.search p {
+    width: 200px;
+    font-size: .7em;
+    text-align: right;
+    margin: 0 auto;
+    color: white;
+    padding-right: 10px;
+    margin-bottom: 4px;
+}
+
+.search p a, span.gold-text {
+    color: rgb(218,181,0);
+}
+
+.search form {
+    width: 278px;
+    height: 60px;
+    border-radius: 10px;
+    background-color: rgb(68,68,68);
+    box-shadow: 2px 2px 2px black;
+}
+
+.search-wrapper {
+    width: 210px;
+    margin: 0 auto;
+    line-height: 60px;
+}
+
+.search-wrapper input[type="text"] {
+    width: 158px;
+    height: 35px;
+    text-align: center;
+    border-top: 2px solid grey;
+    border-left: 2px solid grey;
+}
+
+p span.pipe {
+    color: black;
+}
+
+.search-wrapper input[type="submit"] {
+    border-left: 2px solid white;
+    border-top: 2px solid white;
+    border-right: 2px solid grey;
+    border-bottom: 2px solid grey;
+    box-shadow: 1px 1px 2px black;
+    width: 40px;
+    height: 32px;
+    border-radius: 5px;
+    margin-left: 2px;
+    background-color: rgb(36,80,118);
+    color: white;
+}
+
+.nav {
+    width: 850px;
+    height: 48px;
+    background-color: rgb(69,125,173);
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px black;
+}
+
+.nav ul {
+    line-height: 48px;
+    text-align: center;
+    font-size: 120%;
+}
+
+.nav li {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.nav li, .nav li a {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+}
+
+
+
+.main-content {
+    width: 852px;
+    height: 305px;
+    text-align: center;
+    margin: 0 auto;
+    font-size: .85em;
+    color: white;
+}
+
+.sidenav {
+    display: inline-block;
+    width: 190px;
+    line-height: 2;
+    margin-left: 20px;
+    vertical-align: top;
+    padding-top: 30px;
+}
+
+.sidenav ul {
+list-style: none;
+}
+
+.sidenav li:before {
+    content: "\00BB \0020";
+    color: rgb(218,181,0);
+}
+
+.sidenav a {
+    color: white;
+}
+
+
+.about {
+    display: inline-block;
+    width: 520px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-top: 20px;
+}
+
+.about p {
+    font-size: .9em;
+}
+
+.gold-text p {
+    font-size: 120%;
+    font-weight: 200;
+    font-style: italic;
+    padding-top: 10px;
+}
+
+.about p.large {
+    font-size: 110%;
+    font-weight: 100;
+    padding-top: 15px;
+}
+/*
+.sub-wrapper {
+    color: white;
+}*/
+
+.sub-content {
+    width: 890px;
+    height: 220px;
+    margin: 0 auto;
+    color: white;
+    padding-left: 100px;
+}
+
+.subnav {
+    width: 380px;
+    display: inline-block;
+    color: black;
+    text-align: center;
+    font-size: .7em;
+    margin-top: 8px;
+    margin-right: 20px;
+    padding-left: 20px;
+    border-top: 4px solid rgb(126,174,217);
+    vertical-align: top;
+
+}
+
+.subnav h3, .subnav p {
+    width: 230px;
+    padding-top: 4px;
+}
+
+.subnav a.small {
+    font-size: 50%;
+    color: rgb(126,174,217);
+    text-decoration: none;
+}
+
+
+.subnav ul {
+    width: 220px;
+    list-style-type: square;
+    padding-left: 30px;
+}
+
+.subnav li {
+    width: 180px;
+    line-height: 1.5;
+    padding-left: 10px;
+}
+
+.subnav li a {
+    color: rgb(126,174,217);
+    text-decoration: none;
+}
+
+.footer {
+    height: 100px;
+    background: linear-gradient(rgb(36,80,118),rgb(54,118,173));
+    /*color: rgb(69,125,173);*/
+    color: rgb(134,184,228);
+}
+
+.footer ul {
+    list-style: none;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.footer ul li {
+    display: inline-block;
+    padding-right: 30px;
+
+}
+
+.footer a {
+    color: rgb(134,184,228);
+    text-decoration: none;
+    font-size: .85em;
+}
+
+.footer p {
+    font-size: 20%;
+    text-align: center;
+    margin-top: 15px;
+}
