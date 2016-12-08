@@ -31,12 +31,12 @@ var users = {
 console.log("Students");
 
 for (var i = 0; i  < users.Students.length; i ++) {
-    console.log(i + " - " + users.Students[i].first_name + " " + users.Students[i].last_name + " - " + (users.Students[i].first_name.length + users.Students[i].last_name.length));
+    console.log(i + 1 + " - " + users.Students[i].first_name + " " + users.Students[i].last_name + " - " + (users.Students[i].first_name.length + users.Students[i].last_name.length));
 }
 
 // print the instructors
 console.log("Instructors");
 
 for (var i = 0; i < users.Instructors.length; i ++ ) {
-    console.log(i + " - " + users.Instructors[i].first_name + " " + users.Instructors[i].last_name + " - " + (users.Instructors[i].first_name.length + users.Instructors[i].last_name.length));
+    console.log(i + 1 + " - " + users.Instructors[i].first_name + " " + users.Instructors[i].last_name + " - " + (users.Instructors[i].first_name.length + users.Instructors[i].last_name.length));
 }
