@@ -41,6 +41,10 @@ h1.header {
         padding-left: 15px;
     }
 
+    .sidebar ul li.none {
+        list-style: none;
+    }
+
 
 .content {
     width: 738px;
