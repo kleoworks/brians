@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<!--  build page to demonstrate the the jQuery functions () = optional
+
+
+
+
+
+Events:
+.click
+(.on)
+.focus
+(.hover)
+ -->
+
+
+    <head>
+        <meta charset="utf-8">
+        <title>jQuery Functions</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="jQueryFunc_style.css">
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                console.log("document has loaded!");
+
+                // EFFECTS
+
+                // show
+                $('body').on('click', '#show', function() {
+                    $('.effects-methods .blocks').show(1000);
+                });
+
+                // hide
+                $('body').on('click', '#hide', function() {
+                    $('.effects-methods .blocks').hide(1000);
+                });
+
+                // toggle
+                $('body').on('click', '#toggle', function() {
+                    $('.effects-methods .blocks').toggle(2000);
+                });
+
+                // fade in and out
+                $('body').on('click', '#fadein', function() {
+                    $('.effects-methods .yellow').fadeIn(1000);
+                });
+
+                $('body').on('click', '#fadeout', function() {
+                    $('.effects-methods .yellow').fadeOut(1000);
+                });
+
+                // slideDown, slideUp, slideToggle
+
+                // shows a hidden element
+                $('body').on('click', '#slidedown', function() {
+                    $('.effects-methods .blue').slideDown(500);
+                });
+
+                // hides a hidden element
+                $('body').on('click', '#slideup', function() {
+                    $('.effects-methods .blue').slideUp(500);
+                });
+
+                //toggles
+                $('body').on('click', "#slidetoggle", function() {
+                    $('.effects-methods .blocks').slideToggle(1000);
+                });
+
+
+                // CSS
+                $('body').on('click', '#addclass', function() {
+                    $('.css-methods .blocks:nth-of-type(1)').addClass('red');
+                    $('.css-methods .blocks:nth-of-type(2)').addClass('yellow');
+                    $('.css-methods .blocks:nth-of-type(3)').addClass('blue');
+                });
+
+
+                // Manipulation
+
+                // before and after
+                $('body').on('click', '#before', function() {
+                    $('.inner-wrapper').before('<div class="circles brick"></div>');
+                });
+
+                $('body').on('click', "#after", function() {
+                    $('.inner-wrapper').after('<div class="circles bluewood"></div>');
+                });
+
+                // prepend and append
+                $('body').on('click', "#prepend", function() {
+                    $('.inner-wrapper').prepend('<div class="pacman-left"></div>');
+                });
+
+                $('body').on('click', "#append", function() {
+                    $('.inner-wrapper').append('<div class="pacman-right"></div>');
+                });
+
+                //text
+                $('body').on('click', '#text', function() {
+                    var newText = $('.text-wrapper h2').text();
+                    $('.text-wrapper h2').text(newText + ' *** ');
+                });
+
+                //html
+                var counter = 1;
+                $('body').on('click', '#html', function() {
+
+                    if (counter === 1) {
+                        $('.empty').html('<h1 class="red">I made HTML inside this div!</h1>');
+                        counter = 0;
+                    } else {
+                        $('.empty').html('<h1 class="yellow">I made HTML inside this div!</h1>');
+                        counter = 1;
+                    }
+
+                });
+
+                //on focus
+                $('#search').on('focus', function() {
+                    $('#search').attr('placeholder', 'MEGA FORM');
+                });
+
+                //attr
+                $('body').on('click', '#attr', function() {
+
+                    // get attr info before setting, if empty set it to MEGA FORM, if not, then make it empty
+                    var attrData = $('#search').attr('placeholder');
+
+
+                    if (attrData === 'MEGA FORM') {
+                        $('#search').removeAttr('placeholder');
+                    } else {
+                        $('#search').attr('placeholder', 'MEGA FORM');
+                    }
+
+                });
+
+                // val & data to do another time...
+
+
+            });
+        </script>
+    </head>
+
+    <body>
+
+        <div class="wrapper">
+
+            <h1>Basic jQuery Functions</h1>
+
+            <div class="effects-methods">
+                <h1>effects:</h1>
+
+                <ul class="nav">
+                    <li id='show'>.show</li>
+                    <li id='hide'>.hide</li>
+                    <li id="toggle">.toggle</li>
+                    <li id="fadein">.fadeIn</li>
+                    <li id="fadeout">.fadeOut</li>
+                    <li id="slidedown">.slideDown</li>
+                    <li id="slideup">.slideUp</li>
+                    <li id="slidetoggle">.slideToggle</li>
+                </ul>
+
+                <div class='blocks red'></div>
+                <div class='blocks yellow'></div>
+                <div class='blocks blue'></div>
+            </div>
+
+            <div class="css-methods">
+
+                <h1>css methods:</h1>
+                <ul class="nav">
+                    <li id="addclass">.addClass</li>
+                </ul>
+                <div class='blocks'></div>
+                <div class='blocks'></div>
+                <div class='blocks'></div>
+            </div>
+
+            <div class="manipulation-methods">
+
+                <h1>manipulation methods:</h1>
+                <ul class="nav">
+                    <li id="before">.before</li>
+                    <li id="prepend">.prepend</li>
+                    <li id="append">.append</li>
+                    <li id="after">.after</li>
+                    <li id="attr">.attr</li>
+                    <li id="val"><span class="grey">.val</span></li>
+                    <li id="text">.text</li>
+                    <li id="html">.html</li>
+                    <li id="data"><span class="grey">.data</span></li>
+
+                </ul>
+
+                <div class="outer-wrapper">
+                    <div class="inner-wrapper">
+                        <div class='blocks red'></div>
+                        <div class='blocks yellow'></div>
+                        <div class='blocks blue'></div>
+                    </div>
+                </div>
+
+                <div class="text-wrapper">
+                    <h2>SOME UNINTERESTING TEXT</h2>
+                    <div class="empty"></div>
+                </div>
+
+                <form>
+                    <label>Form field to demonstrate focus (only can be used on form elements and links)</label>
+                    <input id="search" type="text" name="search">
+                    <label class="red-text">* Remove or display again with .attr</label>
+                </form>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+    </body>
+</html>
