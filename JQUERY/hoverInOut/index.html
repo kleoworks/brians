@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hover In/Out</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('img').hover(function() {
+                    $(this).attr('src', $(this).attr('data-alt-src'));
+                }, function() {
+                    $(this).attr('src', $(this).attr('alt'));
+                });
+
+            });
+        </script>
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            h1 {
+                font-family: monospace;
+                color: black;
+            }
+
+            .wrapper {
+                width: 900px;
+                margin: 0 auto;
+            }
+
+            .images {
+                font-size: 0;
+                display: inline-block;
+            }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="wrapper">
+            <h1>Hover In/Out</h1>
+            <div class="images">
+
+                <img src="img/archer_01_a.jpg" alt="img/archer_01_a.jpg" data-alt-src="img/archer_02_a.jpg">
+
+                <img src="img/archer_01_b.jpg" alt="img/archer_01_b.jpg" data-alt-src="img/archer_02_b.jpg">
+
+                <img src="img/archer_01_c.jpg" alt="img/archer_01_c.jpg" data-alt-src="img/archer_02_c.jpg">
+
+                <img src="img/archer_01_d.jpg" alt="img/archer_01_d.jpg" data-alt-src="img/archer_02_d.jpg">
+
+            </div>
+        </div>
+
+    </body>
+</html>
