@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Users</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js">
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                $('button').click(function() {
+                    $('table').append('<tr><td>' + $('#fname').val() + '</td><td>' + $('#lname').val() + '</td><td>' + $('#email').val() + '</td><td>' + $('#phone').val() + '</td></tr>');
+                    $('input').val('');
+                });
+            });
+
+        </script>
+
+        <style media="screen">
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                padding: 20px;
+            }
+
+            table {
+                width: 600px;
+                border: 1px solid black;
+                border-collapse: collapse;
+                margin-bottom: 25px;
+            }
+
+            th, td {
+                border-bottom: 1px solid black;
+                padding: 4px;
+                text-align: left;
+            }
+
+            #user-form {
+                width: 300px;
+                border-top: 2px solid black;
+                padding-top: 15px;
+            }
+
+                form label {
+                    display: inline-block;
+                    width: 135px;
+                    text-align: right;
+                }
+                form input {
+                    margin-top: 8px;
+                    margin-left: 4px;
+                    width: 155px;
+                }
+
+                button {
+                    margin-top: 25px;
+                    padding: 3px;
+                    border: 1px solid grey;
+                    border-radius: 4px;
+                    background: linear-gradient(#f2f2f2, #d4d4d4);
+                    margin-left: 242px;
+                }
+
+        </style>
+    </head>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email Address</th>
+                    <th>Contact #</th>
+                </tr>
+            </thead>
+        </table>
+
+        <h1>Add User</h1>
+
+        <div id="user-form">
+            <form class="users" action="index.html" method="post">
+                <label for="fname">First Name: </label><input id="fname" type="text" name="fname" value="">
+                <label for="lname">Last Name: </label><input id="lname" type="text" name="lname" value="">
+                <label for="email">Email Address: </label><input id="email" type="text" name="email" value="">
+                <label for="phone">Contact No.:</label><input id="phone" type="text" name="phone" value="">
+            </form>
+            <button type="button" name="submit">Add User</button>
+        </div>
+
+
+    </body>
+</html>
