@@ -6,11 +6,11 @@
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
+
                 // http://www.anapioficeandfire.com/api/houses/17  House Baratheon of Storm's End
                 // http://www.anapioficeandfire.com/api/houses/229  House Lannister of Casterly Rock
                 // http://www.anapioficeandfire.com/api/houses/362  House Stark of Winterfell
                 // http://www.anapioficeandfire.com/api/houses/378  House Targaryen of King's Landing
-
 
                 // on img click, get house details
                 $('img').click(function() {
@@ -69,7 +69,7 @@
                 width: 900px;
                 margin: 20px auto;
                 text-align: center;
-                position: relative;
+
             }
 
                 img {
@@ -84,9 +84,9 @@
             p#caption {
                 width: 108px;
                 padding: 4px 0px 4px 4px;
-                position: absolute;
-                top: 208px;
-                left: 270px;
+                position: relative;
+                top: -32px;
+                left: -4px;
                 background-color: white;
                 z-index: 1;
             }
@@ -95,7 +95,6 @@
                 width: 540px;
                 margin: 40px auto;
                 padding: 20px;
-                /*border: 2px solid black;*/
             }
 
         </style>
