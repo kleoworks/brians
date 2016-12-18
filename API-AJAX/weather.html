@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Weather Forecast</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            // API key ~ a464e3a844cef11c35bb413024127aeb
+
+            $(document).ready(function() {
+
+                $('#submit').click(function() {
+                    var userInput = $('#search').val();
+
+                    $.get('http://api.openweathermap.org/data/2.5/weather?q='+userInput+'&APPID=a464e3a844cef11c35bb413024127aeb', function(res) {
+                        $('h1').text(res.name);
+                        $('p').text('Temperature: ' + Math.floor(res.main.temp * 9/5 - 459.67));
+                    }, 'json');
+
+                    return false;
+                });
+
+
+
+            });
+
+        </script>
+
+        <style media="screen">
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: monospace;
+                padding: 20px;
+            }
+
+            h1, p {
+                margin-top: 15px;
+            }
+
+            input {
+                height: 20px;
+                padding: 4px;
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+        <form class="weather" action="index.html" method="post">
+            <input id="search" type="text" name="search" value="">
+            <input id="submit" type="submit" name="submit" value="Search Weather">
+        </form>
+        <h1></h1>
+        <p></p>
+    </body>
+</html>
