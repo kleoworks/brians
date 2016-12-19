@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Pacman Demo</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            //define world
+            var world = [[3,3,3,3,3,3,3,3,3,3],
+                        [3,1,1,1,1,1,1,1,1,3],
+                        [3,1,3,3,1,1,3,3,1,3],
+                        [3,1,3,1,1,1,1,3,1,3],
+                        [3,1,1,1,2,1,1,1,1,3],
+                        [3,1,3,1,1,1,1,3,1,3],
+                        [3,1,3,3,1,1,3,3,1,3],
+                        [3,1,1,1,1,1,1,1,1,3],
+                        [3,3,3,3,3,3,3,3,3,3]];
+
+
+            //starting pacman position
+            var position = {
+                v: 4,
+                h: 4
+            }
+
+            //starting score
+            var score = 0;
+
+            //bonus points for cherry
+            var cherry = 50;
+
+            //draw world
+            function createWorld(world) {
+
+                 var row = '';
+
+                 for (var i = 0; i < world.length; i++) {
+
+                     row += '<div class="row">';
+
+                     for (var j = 0; j < world[i].length; j++) {
+
+                         if (world[i][j] == 3) {
+                             row += '<div class="brick"></div>';
+                         } else if (world[i][j] == 1) {
+                             row += '<div class="coin"></div>';
+                         } else if (world[i][j] == 0){
+                             row += '<div class="empty"></div>';
+                         } else if (world[i][j] == 5) {
+                             row += '<div class="cherry"></div>';
+                         } else {
+                            row += '<div class="pacman"></div>';
+                         }
+                     }
+
+                     row += '</div>';
+
+                 }
+
+                 $('.world').html(row);
+
+            }
+
+
+            function displayScore(score) {
+                $('.scoreboard h3').text('Score: ' + score);
+            }
+
+
+            function updateScore(score, points) {
+                score += points;
+                displayScore(score);
+                $('.points').empty().show();
+                if (points > 10) {
+                    $('.points').html('<h1 id="pink">+' + points + '<h1>').fadeOut(500);
+                } else {
+                    $('.points').html('<h1>+' + points + '<h1>').fadeOut(300);
+                }
+                return score;
+            }
+
+
+            function displayCherry(world) {
+
+                $('.scoreboard h3').after('<div class="fruit"></div>');
+
+                window.setTimeout(function () {
+                    var hPos = Math.round(Math.random());
+                    var vPos = Math.round(Math.random());
+
+                    if (hPos == 0) {
+                        //position in left corner
+                        hPos = 1;
+                    } else {
+                        //position in right corner
+                        hPos = world[0].length-2;
+                    }
+
+                    if (vPos == 0) {
+                        //position upper board
+                        vPos = 1;
+                    } else {
+                        //position lower board
+                        vPos = world.length-2;
+                    }
+
+                    //check that pacmans position is not the same as cherry position before setting
+                    while (true) {
+                        if (position.v !== vPos || position.h !== hPos) {
+                            world[vPos][hPos] = 5;
+                            break;
+                        }
+                    }
+
+                    createWorld(world);
+
+                }, 5000);
+            }
+
+            // is game finished?
+            function gameStatus(world) {
+                for (var i = 1; i < world.length - 1; i++) {
+                    for (var j = 1; j < world[i].length - 1; j++) {
+                        if (world[i][j] == 1) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
+            // once document is loaded, start game
+            $(document).ready(function() {
+
+                //draw the world
+                createWorld(world);
+
+                //display the score
+                displayScore(score);
+
+                //display cherry
+                displayCherry(world);
+
+
+                // play game with up, down, right, left arrow keys
+                $(document).on('keydown', function(key) {
+
+                    // dont use arrow keys to scroll browser screen
+                    key.preventDefault();
+
+                    //keystroke & collission detection
+                    //clear previous position
+                    //update score if ate a coin
+                    //move pacman
+                    //change direction of image
+
+
+                    //move up
+                    if (key.keyCode == 38 && world[position.v-1][position.h] !== 3) {
+                        world[position.v][position.h] = 0;
+                        if (world[position.v-1][position.h] == 1) {
+                            score = updateScore(score, 10);
+                        } else if (world[position.v -1][position.h] == 5) {
+                            score = updateScore(score, 50);
+                        }
+                        world[position.v-=1][position.h] = 2;
+                        createWorld(world);
+                        $('.pacman').css('transform', 'rotate(-90deg)');
+
+                        //move down
+                    } else if (key.keyCode == 40 && world[position.v+1][position.h] !== 3) {
+                        world[position.v][position.h] = 0;
+                        if (world[position.v +1][position.h] == 1) {
+                            score = updateScore(score, 10);
+                        } else if (world[position.v +1][position.h] == 5) {
+                            score = updateScore(score, 50);
+                        }
+                        world[position.v+=1][position.h] = 2;
+                        createWorld(world);
+                        $('.pacman').css('transform', 'rotate(90deg)');
+
+                        //move left
+                    } else if (key.keyCode == 37 && world[position.v][position.h-1] !== 3) {
+                        world[position.v][position.h] = 0;
+                        if (world[position.v][position.h -1] == 1) {
+                            score = updateScore(score, 10);
+                        } else if (world[position.v][position.h -1] == 5) {
+                            score = updateScore(score, 50);
+                        }
+                        world[position.v][position.h-=1] = 2;
+                        createWorld(world);
+                        $('.pacman').css('transform', 'scaleX(-1)');
+
+                        //move right
+                    } else if (key.keyCode == 39 && world[position.v][position.h+1] !==3) {
+                        world[position.v][position.h] = 0;
+                        if (world[position.v][position.h +1] == 1) {
+                            score = updateScore(score, 10);
+                        } else if (world[position.v][position.h +1] == 5) {
+                            score = updateScore(score, 50);
+                        }
+                        world[position.v][position.h+=1] = 2;
+                        createWorld(world);
+                    }
+
+                    if (gameStatus(world) == false) {
+                        $('.wrapper').html('<h1 class="game-over">GAME</h1><h1 class="game-over">OVER</h1>');
+                    }
+
+                });
+
+            });
+
+
+        </script>
+
+
+
+        <style media="screen">
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: monospace;
+                font-size: 0;
+            }
+
+
+            .wrapper {
+                padding: 40px;
+                background: black;
+                width: 600px;
+                margin: 0 auto;
+            }
+
+            .game-over {
+                font-size: 240px;
+                color: red;
+                text-align: center;
+                padding: 0;
+
+            }
+
+
+            .scoreboard {
+                width: 200px;
+            }
+
+                .scoreboard h3 {
+                    width: 150px;
+                    font-size: 18px;
+                    color: white;
+                    display: inline-block;
+
+                }
+
+
+
+            div.fruit {
+                margin-left: 30px;
+                background: url('images/cherry.png') center no-repeat;
+                background-size: 90%;
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                vertical-align: bottom;
+            }
+
+
+            .world {
+                width: 250px;
+                display: inline-block;
+            }
+
+
+                div.row div{
+                    width: 20px;
+                    height: 20px;
+                    display: inline-block;
+                }
+
+                div.empty {
+                    background-color: black;
+                }
+
+                div.brick {
+                    background-color: blue;
+
+                }
+
+                div.coin {
+                    background: url('images/coin.gif') center no-repeat;
+                    background-size: 40%;
+                }
+
+                div.pacman {
+                    background: url('images/pacman.gif');
+                    background-size: cover;
+                    /*default no transform property, pacman looks right*/
+                }
+
+                div.cherry {
+                    background: url('images/cherry.png') center no-repeat;
+                    background-size: 90%;
+                }
+
+            .points {
+                width: 200px;
+                height: 100px;
+                display: inline-block;
+                vertical-align: top;
+            }
+
+                .points h1 {
+                    font-size: 100px;
+                    line-height: 100px;
+                    color: yellow;
+                    vertical-align: top;
+                }
+
+                .points h1#pink {
+                    color: pink;
+                    font-size: 200px;
+                    line-height: 100px;
+                    vertical-align: top;
+                    margin-left: -20px;
+                }
+
+        </style>
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            <div class="scoreboard">
+                <h3></h3>
+            </div>
+
+            <div class="world">
+
+            </div>
+
+            <div class="points">
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </body>
+</html>
