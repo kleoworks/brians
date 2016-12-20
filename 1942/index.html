@@ -62,12 +62,16 @@
 					enemyArray[i].y = 0;
 					enemyArray[i].x = 0;
 					continue;
+
+				//if plane falls below screen, reposition above screen in random positions
 				} else if (enemyArray[i].y > 540) {
 					enemyArray[i].y = -(Math.random()*(200 - 5) + 1);
 					enemyArray[i].x = Math.random()*(700-100) + 100;
 					$('#'+i).css('top', enemyArray[i].y +'px');
 					$('#'+i).css('left', enemyArray[i].x + 'px');
 				} else {
+
+					//move downward
 					enemyArray[i].y+=10;
 					$('#'+i).css('top', enemyArray[i].y +'px');
 				}
@@ -86,13 +90,15 @@
 			var bulletHTML = '';
 
 			for (var i = 0; i < bullets.length; i++) {
-				//swap bullet if it's position is above screen
+				//if bullet array length is 1 and bullets are above screen, empty array!
 				if (bullets.length == 1 && bullets[i].y <= 0) {
 					bullets = [];
 					continue;
+				//swap bullet (remove it from the array) if it's position is above screen
 				} else if (bullets[i].y <= 0) {
 					bullets[i] = bullets.pop();
 				}
+				//move bullet upward
 				bullets[i].y-=15;
 				bulletHTML += '<div class="bullet" style="top:' + bullets[i].y + 'px; left:' + bullets[i].x + 'px;"></div>';
 			}
