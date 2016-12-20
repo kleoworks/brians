@@ -1,0 +1,236 @@
+<html>
+<head>
+	<title>1942 Game</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript">
+
+		//hero starting position
+		var hero = {
+			x: 300,
+			y: 300
+		}
+
+		//enemy starting positions
+		var enemyArray = [
+			{x:100, y:100},
+			{x:200, y:100},
+			{x:300, y:100},
+			{x:400, y:100},
+			{x:500, y:100},
+			{x:600, y:100},
+			{x:700, y:100}
+		];
+
+		//starting score 100????
+		var score = 100;
+
+
+		//empty array to store bullets
+		var bullets = [];
+
+		function displayScore() {
+			$('#score').text(score);
+		}
+
+
+		function displayHero() {
+			$('#hero').css({'top' : hero.y+'px', 'left' : hero.x+'px'});
+		}
+
+		function moveHero(x, y) {
+			hero.x += x;
+			hero.y += y;
+			$('#hero').css({'top' : hero.y+'px', 'left' : hero.x+'px'});
+		}
+
+
+		function displayEnemies() {
+			for (var i = 0; i < enemyArray.length; i++) {
+				if(i % 2 == 0) {
+					$('#enemies').append('<div id="'+i+'" class="enemy1" style="top:'+enemyArray[i].y+'px;left:'+enemyArray[i].x+'px"</div>');
+				} else {
+					$('#enemies').append('<div id="'+i+'" class="enemy2" style="top:'+enemyArray[i].y+'px;left:'+enemyArray[i].x+'px"</div>');
+				}
+			}
+		}
+
+		function moveEnemies() {
+			for (var i = 0; i < enemyArray.length; i++) {
+
+				//ignore exploded enemy planes!
+				if ($('#'+i).attr('class') == "explode") {
+					enemyArray[i].y = 0;
+					enemyArray[i].x = 0;
+					continue;
+				} else if (enemyArray[i].y > 540) {
+					enemyArray[i].y = -(Math.random()*(200 - 5) + 1);
+					enemyArray[i].x = Math.random()*(700-100) + 100;
+					$('#'+i).css('top', enemyArray[i].y +'px');
+					$('#'+i).css('left', enemyArray[i].x + 'px');
+				} else {
+					enemyArray[i].y+=10;
+					$('#'+i).css('top', enemyArray[i].y +'px');
+				}
+			}
+
+		}
+
+
+		function shootBullets() {
+			bullets.push({x: hero.x + 7, y: hero.y - 15});
+			$('#bullets').append('<div class="bullet" style="top:' + bullets[bullets.length-1].y + 'px; left:' + bullets[bullets.length-1].x + 'px;"></div>');
+		}
+
+		function moveBullets() {
+
+			var bulletHTML = '';
+
+			for (var i = 0; i < bullets.length; i++) {
+				//swap bullet if it's position is above screen
+				if (bullets.length == 1 && bullets[i].y <= 0) {
+					bullets = [];
+					continue;
+				} else if (bullets[i].y <= 0) {
+					bullets[i] = bullets.pop();
+				}
+				bullets[i].y-=15;
+				bulletHTML += '<div class="bullet" style="top:' + bullets[i].y + 'px; left:' + bullets[i].x + 'px;"></div>';
+			}
+			$('#bullets').html(bulletHTML);
+		}
+
+
+		function collissionDetection() {
+			//hero & enemy
+			for (var i = 0; i < enemyArray.length; i++) {
+				if (Math.abs(enemyArray[i].x - hero.x) < 5 && Math.abs(enemyArray[i].y - hero.y) < 5) {
+					//collided with enemy plane! loose 500 pts
+					score -= 500;
+					displayScore();
+				}
+
+				//enemy and bullets
+				for (var j = 0; j < bullets.length; j++) {
+					if (Math.abs(enemyArray[i].x - bullets[j].x) < 15 && Math.abs(enemyArray[i].y - bullets[j].y) < 15) {
+						//target hit! add 10 pts
+						score += 10;
+						displayScore();
+						//plane explodes!
+						$('#'+i).attr('class', 'explode').fadeOut(500);
+						//make bullets dissapear
+						bullets[j].y = 0;
+
+					}
+				}
+			}
+		}
+
+		function gameLoop() {
+			moveEnemies();
+			collissionDetection();
+			moveBullets();
+		}
+
+
+		//once document is loaded... begin game!
+		$(document).ready(function() {
+
+			displayHero();
+			displayEnemies();
+			displayScore();
+			setInterval(gameLoop, 100);
+
+			$(document).on('keydown', function(key) {
+				key.preventDefault();
+				if (key.keyCode == 38) {
+					moveHero(0, -15); // move 15 pixels up
+				} else if (key.keyCode == 40) {
+					moveHero(0, 15); // move 15 pixels down
+				} else if (key.keyCode == 37) {
+					moveHero(-15, 0); // move 15 pixels left
+				} else if (key.keyCode == 39) {
+					moveHero(15, 0); // move 15 pixels right
+				} else if (key.keyCode == 32) {
+					shootBullets();
+				}
+			});
+		});
+
+	</script>
+
+<style type="text/css">
+	body{
+		background-color:black;
+	}
+	#container{
+		background: url('background02.jpg');
+		background-size: cover;
+		width:1000px;
+		height:550px;
+	}
+	#hero{
+		background: url('1942.gif');
+		background-position: -85px -180px;
+		width:28px;
+		height:28px;
+		position:absolute;
+	}
+	.enemy1{
+		background: url('1942.gif');
+		background-position: -30px -10px;
+		width:28px;
+		height:28px;
+		/*transform: rotate(-9deg);*/
+		position:absolute;
+	}
+	.enemy2{
+		background: url('1942.gif');
+		background-position: -60px -10px;
+		width:28px;
+		height:28px;
+		position:absolute;
+	}
+	.bullet{
+		background: url('1942.gif');
+		background-position: -185px -400px;
+		width:18px;
+		height:18px;
+		position:absolute;
+	}
+
+	.explode{
+		background: url('1942.gif');
+		background-position: -30px -400px;
+		width: 20px;
+		height: 20px;
+		position: absolute;
+	}
+
+	#score{
+		position:absolute;
+		border:10px solid red;
+		top:20px;
+		left:800px;
+		background-color:white;
+		padding:10px;
+		font-size:30px;
+		font-family: Arial;
+	}
+</style>
+</head>
+<body>
+	<div id='container'>
+		<div id='hero'></div>
+		<div id='enemies'></div>
+		<div id='bullets'></div>
+	</div>
+
+	<div id='score'></div>
+
+
+<script>
+
+</script>
+
+</body>
+</html>
