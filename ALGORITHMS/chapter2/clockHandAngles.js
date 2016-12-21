@@ -2,7 +2,7 @@ function clockHandAngles(seconds) {
 
     //given # in seconds since 12:00:00, print in degrees hour, minute and seconds
 
-    //week hand for each week -- pending -- unclear instructions!
+    //week hand for each week
 
     var clockSeconds = {
         week: 604800,
