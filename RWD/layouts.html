@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Layouts</title>
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: Verdana;
+            }
+
+            .wrapper {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .header {
+                padding: 15px;
+                background-color: #dddddd;
+                margin-bottom: 12px;
+            }
+
+            .header h2 {
+                margin-bottom: 10px;
+
+            }
+
+            .nav li {
+                background-color: #dddddd;
+                padding: 4px 8px;
+                font-size: .7em;
+                display: inline-block;
+                border: 1px solid #c4c4c4;
+
+            }
+
+            .row {
+                margin-top: 20px;
+                clear: both;
+            }
+
+            .column {
+                padding-right: 12px;
+                float: left;
+                box-sizing: border-box;
+            }
+
+            @media only screen and (min-width: 792px) {
+                .col4 {width: 25%;}
+            }
+
+
+
+            @media only screen and (max-width: 791px) {
+                .nav {
+                    display: none;
+                }
+                .col3 {width: 33%;}
+                .col3:last-child {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+            }
+
+
+        </style>
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            <div class="header">
+                <h2>Header</h2>
+                <h3>Subtitle</h3>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Contact us</a></li>
+                    <li><a href="">Videos</a></li>
+                    <li><a href="">Pricing</a></li>
+                    <li><a href="">Something</a></li>
+                    <li><a href="">Something more...</a></li>
+                    <li><a href="">Something even more...</a></li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="column col3 col4">
+                    <h5>Coffee Ipsum</h5>
+                    <p>Variety con panna, whipped con panna trifecta skinny turkish. Caramelization con panna extraction, doppio spoon that shop chicory beans ristretto skinny grinder. Arabica aged caramelization, pumpkin spice skinny variety aroma americano.</p>
+                </div>
+                <div class="column col3 col4">
+                    <h5>Lorem Ipsum</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent ultricies sollicitudin velit eu semper. Nullam condimentum tellus eu tellus dignissim, et malesuada turpis cursus. Sed vulputate pellentesque metus. Nulla efficitur ultrices sem. Curabitur purus quam, porttitor a felis a, auctor fermentum lectus. Nunc quis mi vel augue hendrerit volutpat eget vitae mi. Nunc at orci at est sollicitudin imperdiet id sed mauris. Aliquam non nisi lacus. Etiam ut congue est. Vestibulum semper, risus vel auctor laoreet, risus nulla imperdiet eros, in scelerisque erat sem in massa. Nulla vel fringilla purus, nec egestas ante. Etiam sit amet sodales nulla. Suspendisse potenti. Ut at molestie magna, a feugiat diam.</p>
+                </div>
+                <div class="column col3 col4">
+                    <h5>Baby Ipsum</h5>
+                    <p>Googoo gaga gaga da gaagaa doo laa ga gaga laalaa gaga goo. Doo doo yaya goo googoo ga da googoo da. Googoo gaga gaga da gaagaa doo laa ga gaga laalaa gaga goo. Doo doo yaya goo googoo ga da googoo da. Googoo gaga gaga da gaagaa doo laa ga gaga laalaa gaga goo. Doo doo yaya goo googoo ga da googoo da. Googoo gaga gaga da gaagaa doo laa ga gaga laalaa gaga goo. Doo doo yaya goo googoo ga da googoo da.</p>
+                </div>
+                <div class="column col3 col4">
+                    <h5>Zombie Ipsum</h5>
+                    <p>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris. Hi mindless mortuis soulless creaturas, imo evil stalking monstra adventus resi dentevil vultus comedat cerebella viventium. Qui animated corpse, cricket bat max brucks terribilem incessu zomby. The voodoo sacerdos flesh eater, suscitat mortuos comedere carnem virus. Zonbi tattered for solum oculi eorum defunctis go lum cerebro. Nescio brains an Undead zombies. Sicut malus putrid voodoo horror. Nigh tofth eliv ingdead.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>
