@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    background-color: #d4d1b0;
+    width: 690px;
+    margin: 0 auto;
+    padding: 20px 0px;
+}
+
+.header {
+    width: 475px;
+    margin: 0 auto;
+}
+
+    .header h1 {
+        display: inline-block;
+    }
+
+    .header img {
+        width: 100px;
+        height: 50px;
+        background-color: white;
+    }
+
+
+.grid {
+    width: 657px;
+    margin: 15px auto 0px auto;
+}
+
+.grid img {
+    width: 100px;
+    height: 100px;
+    padding: 12px;
+    border: 2px solid black;
+    text-align: center;
+    background-color: #84b5eb;
+}
+
+
+.grid img:nth-child(5n+2) {
+    background-color: #f16a72;
+}
+
+.grid img:nth-child(5n+4) {
+    background-color: #f16a72;
+}
