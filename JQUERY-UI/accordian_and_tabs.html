@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Accordion and Tabs Demo</title>
+      <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+      <script type="text/javascript">
+          $(document).ready(function() {
+              $('#jq-accordion').accordion();
+              $('#jq-tabs').tabs();
+              $('#jq-dialog').dialog();
+          });
+      </script>
+
+    </head>
+    <body>
+        <div id="jq-dialog" title="welcome!">
+            <p>Welcome to a simple page about me.</p>
+        </div>
+
+        <div id="jq-accordion">
+            <h3>Name</h3>
+            <div>
+                <p>Brian</p>
+            </div>
+            <h3>Age</h3>
+            <div>
+                <p>Older each year</p>
+            </div>
+            <h3>Lives</h3>
+            <div>
+                <p>Somewhere in the world</p>
+            </div>
+        </div>
+
+        <div id="jq-tabs">
+            <ul>
+                <li><a href="#tab-1">Name</a></li>
+                <li><a href="#tab-2">Age</a></li>
+                <li><a href="#tab-3">Lives</a></li>
+            </ul>
+            <div id="tab-1">
+                <p>Brian</p>
+            </div>
+            <div id="tab-2">
+                <p>Older each year</p>
+            </div>
+            <div id="tab-3">
+                <p>Somewhere in the world</p>
+            </div>
+        </div>
+
+    </body>
+</html>

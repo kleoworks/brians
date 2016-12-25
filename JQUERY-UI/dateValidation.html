@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Coding Dojo Plan-A-Cruise</title>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $('#date-from').datepicker();
+                $('#date-to').datepicker();
+                $('.if-error').hide();
+
+                $('form').submit(function() {
+
+                    $('.if-error').hide();
+
+                    if (!$('#date-from').val()) {
+                        $('#date-from').siblings('.if-error').show();
+                        $('#btn').css('background-color', 'red');
+                    } else if ($('#date-from').val() >= $('#date-to').val() || !$('#date-from').val()) {
+                        $('#date-to').siblings('.if-error').show();
+                        $('#btn').css('background-color', 'red');
+                    } else if (!$('#name').val()) {
+                        $('#name').siblings('.if-error').show();
+                        $('#btn').css('background-color', 'red');
+                    } else {
+                        var msg = "<p>Thanks ";
+                        msg = msg + $('#name').val() + "!"; //name
+                        msg = msg + " Your Cruise leaves on " + $('#date-from').val();
+                        msg = msg + " and returns on " + $('#date-to').val() + "!</p>";
+
+                        $('#btn').css('background-color', 'blue');
+                        $('#alert').html(msg);
+                        $('#alert').dialog({
+                            dialogClass: 'my-dialog',
+                            buttons: [
+                                {
+                                    text: "ok",
+                                    click: function() {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            ]
+                        });
+
+                    }
+
+                    return false;
+
+                });
+            });
+        </script>
+
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body * {
+                font-family: monospace;
+            }
+
+            .wrapper {
+                padding: 25px;
+            }
+
+            form {
+                margin: 0px 80px;
+            }
+
+                form div p {
+                    margin-left: 20px;
+                    display: inline-block;
+                    color: red;
+                }
+
+                form input {
+                    padding: 4px;
+                    border: none;
+                }
+
+                form #date-from, form #date-to, form #btn  {
+                    margin-top: 20px;
+                }
+
+                form #name {
+                    margin-top: 80px;
+                }
+
+                form #btn {
+                    padding: 4px;
+                    background-color: blue;
+                    color: white;
+                    border: 2px solid black;
+                    box-shadow: 3px 3px 0px black;
+                }
+
+            /*jquery ui dialog for Alert*/
+
+            .my-dialog .ui-dialog-titlebar-close {
+                display: none;
+            }
+
+            .ui-widget.ui-widget-content {
+                border: 1px solid black;
+                border-radius: 15px;
+            }
+
+
+            .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+                float: none;
+            }
+
+            .ui-dialog .ui-dialog-title, .ui-dialog .ui-dialog-buttonpane {
+                text-align:center;
+                padding-left: 0.4em;
+                padding-right: 0.4em;
+            }
+
+            .ui-dialog-titlebar {
+                padding: 0;
+                text-align: center;
+                border: none;
+                background: none;
+            }
+
+            .ui-widget-content {
+                border: none;
+            }
+
+            button.ui-button {
+                width: 150px;
+                background: none;
+                border: 1px solid black;
+                border-radius: 20px;
+            }
+
+
+        </style>
+
+    </head>
+    <body>
+
+        <div class="wrapper">
+            <h1>Welcome to the Codingdojo plan-a-Cruise!</h1>
+            <form id="check-dates">
+                <div><input id="date-from" type="text" name="from" placeholder="From:"><p class="if-error">Date can't be blank</p></div>
+                <div><input id="date-to" type="text" name="to" placeholder="To:"><p class="if-error">Select a valid date</p></div>
+                <div><input id="name" type="text" name="name" placeholder="Name:"><p class="if-error">Your name can't be blank!</p></div>
+                <input id="btn" type="submit" name="submit" value="Check dates!">
+            </form>
+            <div id="alert" title="Alert">
+            </div>
+        </div>
+
+    </body>
+</html>
