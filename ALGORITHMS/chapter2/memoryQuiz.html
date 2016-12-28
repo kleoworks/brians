@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Memory Game</title>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+        <script type="text/javascript">
+
+
+            //random # pick generator
+            function randomPick() {
+                return Math.floor(Math.random()*4);
+            }
+
+            //countdown timer
+            function countdown() {
+                var counter = 10;
+                $('.counter').html('good luck...');
+                var timer = setInterval(function() {
+                    $('.counter').html(counter);
+                    counter -= 1;
+                    if (counter == 0) {
+                        clearInterval(timer);
+                        $('.user-message').html('do you remember?');
+                        hideNumbers();
+                        showForm();
+                    }
+                },1000);
+            }
+
+            function showNumbers(num) {
+                $('.game-play').html('<h2 class="show-numbers">'+num+'</h2>');
+
+            }
+
+            function hideNumbers() {
+                $('.game-play').hide();
+            }
+
+            function showForm() {
+                $('form').show();
+            }
+
+            function hideForm() {
+                $('form').hide();
+            }
+
+            function showStats() {
+                $('.game-stats').show();
+            }
+
+            function hideStats() {
+                $('.game-stats').hide();
+            }
+
+            //play game-name
+            function playGame(num) {
+                showNumbers(num);
+                countdown(); // then show form for user input
+            }
+
+
+            var numbers = [
+                Math.trunc(Math.PI * 1000000000),
+                Math.trunc(Math.E * 1000000000),
+                Math.trunc(Math.sqrt(2) * 1000000000),
+                Math.trunc(Math.sqrt(1/2) * 10000000000)
+            ];
+
+
+            $(document).ready(function() {
+                hideForm();
+                hideStats();
+                var num = numbers[randomPick()];
+                var guessNum = 1;
+                var maxGuess = 3;
+
+                $('#btn').click(function() {
+                    //hide button
+                    $(this).hide();
+                    //start game!
+                    playGame(num);
+                });
+
+                $('form').submit(function() {
+                    var guess = Number($('#user-input').val());
+                    if (guessNum <= maxGuess ) {
+                        if (guess == num) {
+                            $('.user-message').html('YOU WON!');
+                            hideForm();
+                        } else {
+                            $('.game-stats').append('<li>Guess ' + guessNum + ': ' + guess);
+                            guessNum+=1
+                            showStats();
+                            if (guessNum == 4) {
+                                $('.user-message').html('<span class="aqua">GAME OVER!</span>');
+                                hideForm();
+                            }
+                        }
+                    }
+                    $('#user-input').val('');
+                    return false;
+                });
+
+
+            });
+
+        </script>
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                font-family: monospace;
+                font-size: 2em;
+                text-align: center;
+                background-color: black;
+            }
+
+            h1 {
+                font-size: 3em;
+                color: white;
+            }
+
+            h2 {
+                font-size: 2em;
+            }
+
+            .wrapper {
+                padding: 20px;
+                background-color: black;
+            }
+
+            h1.game-name {
+                margin-bottom: 40px;
+            }
+
+            .game-play {
+                color: lightgrey;
+            }
+
+            .aqua {
+                color: aqua;
+            }
+
+            .game-user-controls, .counter {
+                color: pink;
+                margin-top: 20px;
+            }
+
+            .game-user-controls button {
+                width: 90px;
+                height: 50px;
+                color: black;
+                margin-top: 20px;
+            }
+
+            button#btn {
+                border-radius: 40px;
+                background-color: white;
+                border: none;
+                font-size: .8em;
+                font-family: monospace;
+            }
+
+            form {
+                margin-top: 20px;
+            }
+
+            input#user-input {
+                width: 50%;
+                height: 40px;
+                padding: 8px;
+                text-align: center;
+                font-size: 1.5em;
+                color: pink;
+            }
+
+            ul {
+                margin-top: 20px;
+                list-style: none;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1 class="game-name">MEMORY GAME</h1>
+            <div class="game-play">
+                <h2 class="message show-numbers">Try to Memorize All 10 Digits!</h2>
+                <h2 class="message">You get <span class="aqua">3</span> tries!</h2>
+            </div>
+            <div class="game-user-controls">
+                <h2 class="user-message counter">Ready?</h2>
+                <form class="user-form" action="index.html" method="post">
+                    <input id="user-input" type="text" name="user-guess">
+                </form>
+                <ul class="game-stats">
+
+                </ul>
+                <button id="btn" type="button" name="start">START</button>
+            </div>
+        </div>
+
+    </body>
+</html>

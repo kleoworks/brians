@@ -1,0 +1,28 @@
+What is the JavaScript Math library? What does is contain?
+A set of properties and methods of math specific tools that can be used to do things like create random numbers, calculate the square root, and refer to the value of PI.
+
+Why aren't all those functions just included in JavaScript Automatically?
+It's more code for less common uses.  By keeping the functions separate it allows them to be excluded from javascript code if not needed.
+
+If I call Math,random(), what will it return?
+A random number between 0 and ALMOST 1.
+
+What do the following functions do: Math.floor, Math.ceil, Math.trunc, Math.round?
+All the functions turn a decimal number into an integer.
+Math.floor makes a number smaller
+Math.ceil makes a number bigger
+Math.trunc chops off the fractional part of the number, only leaving the integer
+Math.round: rounds up or down to the nearest integer
+
+When do Math.floor and Math.trunc not return the same value?
+With negative numbers Math.floor will return a more negative value.  Math.trunc will just chop off the fractional part.
+
+What is the % operator and when is it useful?
+% is the modulo operator.  It's useful to test for even and odd values, and to calculate place in a rotation or cycle.
+
+How do i make variables declared outside (right next to) a function visible inside it?
+Declare the variable in the global scope, outside the function
+
+Why should i comment my code? Of i know what it does, isn't commenting just a waste of time?
+Commenting helps yourself and others understand what is happening at a specific place in your code.
+Commenting as you write code saves you time later.
