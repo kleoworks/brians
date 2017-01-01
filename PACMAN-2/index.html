@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-4">
+        <title>Pacman Deux</title>
+        <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script type="text/javascript">
+
+
+
+        var blocks = {
+            '0': 'class="block"', // empty block
+            '-1': 'class="block"', // entrance to the portal!
+            '1': 'class="block coin"', // coin
+            '2': 'class="block horizontal"', // horizontal border
+            '22': 'class="block horizontal cage"', // horizontal border, top of ghost cage
+            '4': 'class="block vertical"', // vertical border
+            '3': 'class="block top right"', //round corner borders = 3, 5, 7, 9
+            '5': 'class="block bottom right"',
+            '7': 'class="block bottom left"',
+            '9': 'class="block top left"',
+        }
+
+        var worldArray = [
+            [9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,22,22,22,22,22,22,22,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+/*portal*/  [-1,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,-1],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ],
+            [9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,7 ,2 ,3 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,9 ,2 ,5 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,4 ],
+/*pacman*/  [4 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,0 ,0 ,1 ,0 ,1 ,0 ,0 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [7 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,9 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,5 ],
+            [0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ],
+            [9 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,3 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ,0 ,4 ,0 ,1 ,0 ,9 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,3 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,4 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,5 ,0 ,1 ,0 ,7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [4 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,1 ,0 ,4 ],
+            [4 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,4 ],
+            [7 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,2 ,5 ]
+        ];
+
+
+        //draw world
+        function drawWorld() {
+
+            var worldHtml = "";
+
+            for (var i = 0; i < worldArray.length; i++) {
+                worldHtml+= '<div class="row">';
+
+                for (var j = 0; j < worldArray[i].length; j++) {
+                    worldHtml+= '<div ' + blocks[worldArray[i][j]] + '></div>';
+                }
+
+                worldHtml+= '</div>';
+            }
+
+            $('.board').html(worldHtml);
+        }
+
+
+        // starting positions
+        var pacman = {
+            'startX': 210, // !!!!!if @ 240 px = center of board, pacman will off of pixel map by 10 px...  when starting to play make sure to add 10px to right or left before starting movePacman() or he'll walk through walls!
+            'startY': 450,
+            'x': 0,
+            'y': 0,
+            'lives': 3,
+            'score': 0,
+            'name': 'pacman',
+            'status': 0 // if 0 pacman can not move, 1 pacman can play
+        }
+
+        var pacman2 = {
+            'startX': 270, // !!!!!if @ 240 px = center of board, pacman will off of pixel map by 10 px...  when starting to play make sure to add 10px to right or left before starting movePacman() or he'll walk through walls!
+            'startY': 450,
+            'x': 0,
+            'y': 0,
+            'lives': 3,
+            'score': 0,
+            'name': 'pacman2',
+            'status': 0
+
+        }
+
+        var blinky = {
+            'startX': 250,
+            'startY': 210,
+            'x': 0,
+            'y': 0,
+            'name': 'blinky',
+            'direction': 'left',
+            'moveLimit': 8, // before change of direction
+            'caged': 0, // 3 states: 0 not caged, 1 ghost's turn to exit cage, 2 caged
+            'cage_speed': 0,
+            'cage_exit': 0,
+            'cage_interval': 0,
+            'uncage_timer': 0,
+            'uncage_interval': 0,
+            'move_interval': 0,
+            'collission_interval': 0
+        }
+
+        var clyde = {
+            'startX': 270,
+            'startY': 250,
+            'x': 0,
+            'y': 0,
+            'name': 'clyde',
+            'direction': 'right',
+            'moveLimit': 8,
+            'caged': 2,
+            'cage_speed': 300,
+            'cage_exit': 8000,
+            'cage_interval': 0,
+            'uncage_timer': 0,
+            'uncage_interval': 0,
+            'move_interval': 0,
+            'collission_interval': 0
+        }
+
+        var inky = {
+            'startX': 210,
+            'startY': 250,
+            'x': 0,
+            'y': 0,
+            'name': 'inky',
+            'direction': 'left',
+            'moveLimit': 8,
+            'caged': 2,
+            'cage_speed': 200,
+            'cage_exit': 6000,
+            'cage_interval': 0,
+            'uncage_timer': 0,
+            'uncage_interval': 0,
+            'move_interval': 0,
+            'collission_interval': 0
+        }
+
+        var pinky = {
+            'startX': 240, // !!!!!warning when centered in cage is off of pixel map by 10 px...  when moving onto board make sure to add 10px to right or left before starting moveGhost() or he'll start walking through walls!
+            'startY': 250,
+            'x': 0,
+            'y': 0,
+            'name': 'pinky',
+            'direction': 'right',
+            'moveLimit': 8,
+            'caged': 2,
+            'cage_speed': 400,
+            'cage_exit': 4000,
+            'cage_interval': 0,
+            'uncage_timer': 0,
+            'uncage_interval': 0,
+            'move_interval': 0,
+            'collission_interval': 0
+        }
+
+        var cherry = {
+            'startX': 290,
+            'startY': 330,
+            'x': 0,
+            'y': 0,
+            'name': 'cherry',
+            'show': 20000,
+            'points': 500,
+            'timer': 0,
+            'collission_interval': 0
+        }
+
+
+        //display score
+        function displayScore() {
+            $('.score.pacman').html('<p>Player 1: '+pacman.score+'</p>');
+            $('.score.pacman2').html('<p>Player 2: '+pacman2.score+'</p>');
+            check_game_won();
+
+        }
+
+        //update score
+        function updateScore(player, points) {
+            player.score += points;
+            $('.score.'+player.name).html('<p>'+player.score+'</p>');
+            displayScore();
+        }
+
+        //display lives
+        function displayLives() {
+            var livesHtml = "";
+            for (var i = 0; i < pacman.lives; i++) {
+                livesHtml+= '<img src="images/pacman_life.png" alt="">';
+            }
+
+            for (var i = 0; i < pacman2.lives; i++) {
+                livesHtml+= '<img src="images/pacman2_life.png" alt="">';
+            }
+            $('.lives').html(livesHtml);
+
+        }
+
+        //update lives
+        function updateLives(player) {
+            player.lives -= 1;
+            displayLives();
+        }
+
+
+        //diplay all characters at start of game or reset positions when loss of pacman life
+        function displayAll() {
+
+            if (pacman.status == -1) {
+                pacman.x = -100;
+                pacman.y = -100;
+                $('#pacman').hide();
+            } else {
+                pacman.x = pacman.startX;
+                pacman.y = pacman.startY;
+            }
+
+            if (pacman2.status == -1) {
+                pacman2.x = -100;
+                pacman2.y = -100;
+                $('#pacman2').hide();
+
+            } else {
+                pacman2.x = pacman2.startX;
+                pacman2.y = pacman2.startY;
+            }
+
+            blinky.x = blinky.startX;
+            blinky.y = blinky.startY;
+            inky.x = inky.startX;
+            inky.y = inky.startY;
+            pinky.x = pinky.startX;
+            pinky.y = pinky.startY;
+            clyde.x = clyde.startX;
+            clyde.y = clyde.startY;
+
+            cherry.x = cherry.startX;
+            cherry.y = cherry.startY;
+
+            $('#pacman').css('top', pacman.y +'px');
+            $('#pacman').css('left', pacman.x +'px');
+            $('#pacman').css('transform', 'rotate(0deg)');
+
+            $('#pacman2').css('top', pacman2.y +'px');
+            $('#pacman2').css('left', pacman2.x +'px');
+            $('#pacman2').css('transform', 'rotate(0deg)');
+
+            $('#blinky').css('top', blinky.y +'px');
+            $('#blinky').css('left', blinky.x + 'px');
+            $('#blinky').css('transform', 'rotate(0deg)');
+
+            $('#inky').css('top', inky.y +'px');
+            $('#inky').css('left', inky.x + 'px');
+            $('#inky').css('transform', 'rotate(0deg)');
+
+            $('#pinky').css('top', pinky.y +'px');
+            $('#pinky').css('left', pinky.x + 'px');
+            $('#pinky').css('transform', 'rotate(0deg)');
+
+            $('#clyde').css('top', clyde.y +'px');
+            $('#clyde').css('left', clyde.x + 'px');
+            $('#clyde').css('transform', 'rotate(0deg)');
+
+            $('#cherry').css('top', cherry.y +'px');
+            $('#cherry').css('left', cherry.x +'px');
+            $('#cherry').hide();
+        }
+
+
+        //update Pacman & Ghosts positions on board
+        function displayPacman(player) {
+            $('#'+player.name).css('top', player.y +'px');
+            $('#'+player.name).css('left', player.x +'px');
+        }
+
+        function displayGhost(ghost) {
+            $('#'+ghost.name).css('top', ghost.y +'px');
+            $('#'+ghost.name).css('left', ghost.x + 'px');
+        }
+
+        //move ghost up and down while in cage
+        function cageGhost(ghost) {
+
+            if (ghost.caged == 2) {
+
+                if (ghost.direction == 'up') {
+
+                    var yIdx = ((ghost.y - 20) / 10) + 1;
+                    var xIdx = (ghost.x / 10) + 1;
+
+                    // okay to continue in current direction
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.y -= 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'scaleX(-1)');
+
+                    } else {
+                        // can not continue, need to reverse direction
+                        ghost.direction = 'down';
+                    }
+
+                } else {
+
+                    //move down
+                    var yIdx = ((ghost.y + 20) / 10) + 1;
+                    var xIdx = (ghost.x / 10) + 1;
+
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.y += 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'rotate(0deg)');
+
+                    } else {
+                        ghost.direction = 'up';
+                    }
+                }
+            }
+
+        }
+
+
+        //let ghosts loose from middle cage!
+        function uncageGhost(ghost) {
+
+            if (ghost.caged == 1) {
+                if (ghost.x < 240) {
+                    ghost.x += 10;
+                    displayGhost(ghost);
+                } else if (ghost.x > 240) {
+                    ghost.x -=10;
+                    displayGhost(ghost);
+                } else if (ghost.y > 210) {
+                    ghost.y -= 10;
+                    displayGhost(ghost);
+                } else if (ghost.y == 210) {
+                    ghost.x += 10;
+                    displayGhost(ghost);
+                    ghost.caged = 0;
+                }
+            }
+
+        }
+
+
+        //move Ghosts randomly
+        // named directions for ghosts
+        var directionsArray = ['up','down','left','right'];
+
+        //random number generator for 0 or 1
+        function randomNumGen(min,max) {
+            return Math.floor(Math.random()*(max-min) + min);
+        }
+
+        // create new ghost direction, do not allow to repeat last direction!
+        function newDirection(ghost) {
+            var lastDirection = ghost.direction;
+            var newDirection = directionsArray[randomNumGen(0,4)];
+            while (lastDirection == newDirection) {
+                newDirection = directionsArray[randomNumGen(0,4)];
+            }
+            ghost.moveLimit += randomNumGen(1, 6); // add to ghost limit
+            return newDirection;
+        }
+
+        // if ghost has moved it's limit or ghost will hit a wall/block if continuing at current direction, change ghost direction
+        function moveGhost(ghost) {
+
+            if (ghost.caged == 0) {
+
+                ghost.moveLimit-=1;
+
+                if (ghost.moveLimit == 0) {
+                    ghost.direction = newDirection(ghost);
+                    ghost.moveLimit = 3;
+                }
+
+                //move up
+                if (ghost.direction == 'up') {
+
+                    var yIdx = ((ghost.y - 20) / 10) + 1;
+                    var xIdx = (ghost.x / 10) + 1;
+
+                    // okay to continue in current direction
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.y -= 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'scaleX(-1)');
+
+                    } else {
+                        // can not continue, need to change direction
+                        ghost.direction = newDirection(ghost);
+                    }
+
+                } else if (ghost.direction == 'down') {
+
+                    //move down
+                    var yIdx = ((ghost.y + 20) / 10) + 1;
+                    var xIdx = (ghost.x / 10) + 1;
+
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.y += 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'rotate(0deg)');
+
+                    } else {
+                        ghost.direction = newDirection(ghost);
+                    }
+
+                } else if (ghost.direction == 'right') {
+
+                    //move right
+                    var yIdx = (ghost.y / 10) + 1;
+                    var xIdx = ((ghost.x + 20) / 10) + 1;
+
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.x += 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'scaleX(-1)');
+
+                    } else if (worldArray[yIdx][xIdx] == -1) {
+
+                        //entering the portal!
+                        ghost.x -= 460; // move pacman to far left edge of board
+                        displayGhost(ghost);
+
+                    } else {
+                        ghost.direction = newDirection(ghost);
+                    }
+
+                } else if (ghost.direction == 'left') {
+
+                    //move left
+                    var yIdx = (ghost.y / 10) + 1;
+                    var xIdx = ((ghost.x - 20) / 10) + 1;
+
+                    if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                        ghost.x -= 20;
+                        displayGhost(ghost);
+                        $('#'+ghost.name).css('transform', 'rotate(0deg)');
+
+                    } else if (worldArray[yIdx][xIdx] == -1) {
+
+                        //entering the portal!
+                        ghost.x += 460; // move pacman to far left edge of board
+                        displayGhost(ghost);
+
+                    } else {
+                        ghost.direction = newDirection(ghost);
+                    }
+                }
+            }
+
+        }
+
+
+
+        //collission detection w/ ghost
+        function collissionDetection(ghost, player) {
+
+            sounds_handler();
+
+            if (Math.abs(player.y - ghost.y) <= 20 && Math.abs(player.x - ghost.x) <= 20 && player.lives > 0) {
+                updateScore(player, -100);
+                updateLives(player);
+                pause_players();
+                // play death music!
+                death.play();
+
+                // reset all positions, ghosts and pacman
+                // WARNING!  MUST reconsider this once working w/ invinsible mode!!!
+                pinky.caged = 2;
+                inky.caged = 2;
+                clyde.caged = 2;
+                clearAllIntervals();
+
+                // wait for death music to finish
+                var startTimer = setTimeout(function() {
+                    gamePlay();
+                    clear_timer();
+                }, 3500);
+
+                function clear_timer() {
+                    clearTimeout(startTimer);
+                }
+
+
+            } else if (player.status == 1 && Math.abs(player.y - ghost.y) <= 20 && Math.abs(player.x - ghost.x) <= 20 && player.lives == 0) {
+
+                // PLAYER GAME OVER!
+                // play death music!
+                // hide player by setting status to -1, will remove player from board when displayAll() runs
+                death.play();
+                pause_players();
+                clearAllIntervals();
+                player.status = -1;
+                var startTimer = setTimeout(function() {
+                    check_game_over();
+                }, 3500);
+
+                function clear_timer() {
+                    clearTimeout(startTimer);
+                }
+
+            }
+
+        }
+
+        //collission detection w/ fruit, earns points!!!
+        function collissionDetectionFruit(fruit, player) {
+
+            if (Math.abs(player.y - fruit.y) <= 20 && Math.abs(player.x - fruit.x) <= 20) {
+                updateScore(player, fruit.points);
+                $('#' + fruit.name).hide();
+                clearInterval(fruit.collission_interval);
+            }
+
+        }
+
+
+        function clearAllIntervals() {
+            clearInterval(blinky.move_interval);
+            clearInterval(blinky.collission_interval);
+
+            clearInterval(pinky.cage_interval);
+            clearTimeout(pinky.uncage_timer);
+            clearTimeout(pinky.uncage_interval);
+            clearInterval(pinky.move_interval);
+            clearInterval(pinky.collission_interval);
+
+            clearInterval(inky.cage_interval);
+            clearTimeout(inky.uncage_timer);
+            clearTimeout(inky.uncage_interval);
+            clearInterval(inky.move_interval);
+            clearInterval(inky.collission_interval);
+
+            clearInterval(clyde.cage_interval);
+            clearTimeout(clyde.uncage_timer);
+            clearTimeout(clyde.uncage_interval);
+            clearInterval(clyde.move_interval);
+            clearInterval(clyde.collission_interval);
+
+            clearTimeout(cherry.timer);
+            clearInterval(cherry.collission_interval);
+        }
+
+
+        function ghostPlay(ghost) {
+
+            if (ghost.name != 'blinky') {
+                ghost.cage_interval = setInterval(function() {
+                    cageGhost(ghost);
+                }, ghost.cage_speed);
+
+                ghost.uncage_timer = setTimeout(function() {
+                    ghost.caged = 1;
+                }, ghost.cage_exit);
+
+                ghost.uncage_interval = setInterval(function() {
+                    uncageGhost(ghost);
+                }, 1000);
+
+                ghost.move_interval = setInterval(function() {
+                    moveGhost(ghost);
+                }, 200);
+
+                ghost.collission_interval = setInterval(function() {
+                    collissionDetection(ghost, pacman);
+                    collissionDetection(ghost, pacman2);
+                }, 200);
+            } else if (ghost.name == 'blinky') {
+
+                ghost.move_interval = setInterval(function() {
+                    moveGhost(ghost);
+                }, 200);
+
+                ghost.collission_interval = setInterval(function() {
+                    collissionDetection(ghost, pacman);
+                    collissionDetection(ghost, pacman2);
+                }, 200);
+
+            }
+
+        }
+
+        function fruitPlay(fruit) {
+
+            fruit.timer = setTimeout(function() {
+                $('#' + fruit.name).show();
+                fruit.collission_interval = setInterval(function() {
+                    collissionDetectionFruit(fruit, pacman);
+                    collissionDetectionFruit(fruit, pacman2);
+                })
+            },fruit.show);
+
+        }
+
+        function gamePlay() {
+            sounds_handler();
+            start.play();
+
+            $('#message').show();
+            drawWorld();
+            displayAll();
+            displayScore();
+            displayLives();
+
+            var startTimer = setTimeout(function() {
+                ghostPlay(blinky);
+                ghostPlay(pinky);
+                ghostPlay(inky);
+                ghostPlay(clyde);
+                fruitPlay(cherry);
+
+                //set player status to allow move pacman if players still have lives!
+                if (pacman.status != -1) {
+                    pacman.status = 1;
+                }
+                if (pacman2.status != -1) {
+                    pacman2.status = 1;
+                }
+
+                $('#message').fadeOut(300, clearTimeout(startTimer));
+
+            }, 5000);
+
+        }
+
+        function sounds_handler() {
+
+            var start = $('#start').get(0);
+            var death = $('#death').get(0);
+            var chomp = $('#chomp').get(0);
+
+        }
+
+        // check if game is over
+        function check_game_over() {
+
+            //check lives of both players!!!
+            if (pacman.lives == 0 && pacman.status <= 0 && pacman2.lives == 0 && pacman2.status <= 0) {
+                // if no lives left for both players, then game over
+                $('#message p').html('GAME OVER');
+                $('#message').removeClass('ready');
+                $('#message').addClass('game-over');
+                $('#message').show();
+
+            } else {
+                //not came over
+                gamePlay();
+            }
+        }
+
+        // pause play, don't allow pacmans to move!
+        function pause_players() {
+
+            if (pacman.status == 1) {
+                pacman.status = 0;
+            }
+            if (pacman2.status == 1) {
+                pacman2.status = 0;
+            }
+        }
+
+
+        function check_game_won() {
+
+            for (var i = 0; i < worldArray.length; i++) {
+                for (var j = 0; j < worldArray[i].length; j++) {
+                    if (worldArray[i][j] == 1) {
+                        return;  // still a coin -or- coins left!!, keep playing
+                    }
+                }
+
+            }
+            //no coins found, game over, no other levels!
+            death.play();
+            clearAllIntervals();
+            pause_players();
+            $('#message p').html('NOW WHAT WILL YOU EAT TO SURVIVE?');
+            $('#message').removeClass('ready');
+            $('#message').addClass('game-over');
+            $('#message').show();
+        }
+
+
+        $(document).ready(function() {
+
+            gamePlay();
+
+
+            //pacman 1 controls/moves w/ arrow keys
+            $(document).on('keydown', function(key) {
+
+                key.preventDefault();
+
+
+                sounds_handler();
+
+                if (chomp.currentTime > 0.58) {
+                    chomp.currentTime = 0.0;
+                }
+
+                if (pacman.status == 1) {
+
+                    if (key.keyCode == 38) {
+
+                        //move up
+                        var yIdx = ((pacman.y - 20) / 10) + 1;
+                        var xIdx = (pacman.x / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman.y -= 20;
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman').css('transform', 'rotate(-90deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+                        }
+
+                    } else if (key.keyCode == 40) {
+
+                        //move down
+                        var yIdx = ((pacman.y + 20) /10) + 1;
+                        var xIdx = (pacman.x / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman.y += 20;
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman').css('transform', 'rotate(90deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+                        }
+
+
+                    } else if (key.keyCode == 39) {
+
+                        //move right
+                        var yIdx = (pacman.y / 10) + 1;
+                        var xIdx = ((pacman.x + 20) / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman.x += 20;
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman').css('transform', 'rotate(0deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+
+                        } else if (worldArray[yIdx][xIdx] == -1) {
+                            //entering the portal!
+                            chomp.play();
+                            pacman.x -= 460; // move pacman to far left edge of board
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[(pacman.y / 10) + 1][(pacman.x / 10) + 1] * 10);
+                            worldArray[(pacman.y / 10) + 1][(pacman.x / 10) + 1] = 0;
+                            drawWorld();
+
+                        }
+
+                    } else if (key.keyCode == 37) {
+
+                        //move left
+                        var yIdx = (pacman.y / 10) + 1;
+                        var xIdx = ((pacman.x - 20) / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman.x -= 20;
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman').css('transform', 'rotate(180deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+
+                        } else if (worldArray[yIdx][xIdx] == -1) {
+                            //entering the portal!
+                            chomp.play();
+                            pacman.x += 460; // move pacman to far right edge of board
+                            displayPacman(pacman);
+                            updateScore(pacman, worldArray[(pacman.y / 10) + 1][(pacman.x / 10) + 1] * 10);
+                            worldArray[(pacman.y / 10) + 1][(pacman.x / 10) + 1] = 0;
+                            drawWorld();
+                        }
+
+                    }
+                }
+
+
+
+                //pacman2 controls / moves MAC keys up = z, down = option, left = control, right = command
+                if (pacman2.status == 1) {
+
+                    if (key.keyCode == 90) {
+
+                        //move up
+                        var yIdx = ((pacman2.y - 20) / 10) + 1;
+                        var xIdx = (pacman2.x / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman2.y -= 20;
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman2').css('transform', 'rotate(-90deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+                        }
+
+                    } else if (key.keyCode == 18) {
+
+                        //move down
+                        var yIdx = ((pacman2.y + 20) /10) + 1;
+                        var xIdx = (pacman2.x / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman2.y += 20;
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman2').css('transform', 'rotate(90deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+                        }
+
+
+                    } else if (key.keyCode == 91) {
+
+                        //move right
+                        var yIdx = (pacman2.y / 10) + 1;
+                        var xIdx = ((pacman2.x + 20) / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman2.x += 20;
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman2').css('transform', 'rotate(0deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+
+                        } else if (worldArray[yIdx][xIdx] == -1) {
+                            //entering the portal!
+                            chomp.play();
+                            pacman2.x -= 460; // move pacman to far left edge of board
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[(pacman2.y / 10) + 1][(pacman2.x / 10) + 1] * 10);
+                            worldArray[(pacman2.y / 10) + 1][(pacman2.x / 10) + 1] = 0;
+                            drawWorld();
+
+                        }
+
+                    } else if (key.keyCode == 17) {
+
+                        //move left
+                        var yIdx = (pacman2.y / 10) + 1;
+                        var xIdx = ((pacman2.x - 20) / 10) + 1;
+
+                        if (worldArray[yIdx][xIdx] == 1 || worldArray[yIdx][xIdx] == 0) {
+                            chomp.play();
+                            pacman2.x -= 20;
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[yIdx][xIdx] * 10);
+                            $('#pacman2').css('transform', 'rotate(180deg)');
+                            worldArray[yIdx][xIdx] = 0;
+                            drawWorld();
+
+                        } else if (worldArray[yIdx][xIdx] == -1) {
+                            //entering the portal!
+                            chomp.play();
+                            pacman2.x += 460; // move pacman to far right edge of board
+                            displayPacman(pacman2);
+                            updateScore(pacman2, worldArray[(pacman2.y / 10) + 1][(pacman2.x / 10) + 1] * 10);
+                            worldArray[(pacman2.y / 10) + 1][(pacman2.x / 10) + 1] = 0;
+                            drawWorld();
+                        }
+
+                    }
+                }
+
+            });
+
+
+
+
+        });
+
+
+        </script>
+    </head>
+
+    <body>
+        <audio id="start" src="audio/pacman_beginning.wav"></audio>
+        <audio id="chomp" src="audio/pacman_chomp.wav"></audio>
+        <audio id="death" src="audio/pacman_death.wav"></audio>
+
+        <div class="wrapper">
+            <div class="score pacman"></div>
+            <div class="score pacman2"></div>
+            <div class="world">
+                <div id="pacman"></div>
+                <div id="pacman2"></div>
+                <div id="blinky"></div>
+                <div id="clyde"></div>
+                <div id="inky"></div>
+                <div id="pinky"></div>
+                <div class="board"></div>
+                <div id="message" class="ready"><p>READY!</p></div>
+                <div class="lives"></div>
+                <div id="cherry"></div>
+                <div class="fruit">
+                    <img src="images/cherry.png">
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
