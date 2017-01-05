@@ -1,0 +1,41 @@
+Short Answer Questions - Arrays
+What is an array?
+- an indexed container to store thing
+
+What types of values can be held in an array?
+- objects, data types, and other arrays
+
+What happens if you try to contain values of different date types in an array?
+- it allows you to contain different data types
+
+What is the index of the first element in an array?
+- 0
+
+What is the index of the last element in an array?
+- the number of elements in the array minus 1
+
+if you control an array, what is the easiest way to determine the number of values?
+- by checking the length of the array using the .length property
+
+When would the above method not work well, and what must you do in that case?
+- if you are adding or removing items to an array, it still works to check the length method
+
+What are two ways to mak an array one element longer?
+- use the push() method or setting a value to the next open index using bracket notation
+
+What are two ways to make an array two elements shorter?
+- use the pop() method twice...
+- or using splice() method
+
+What is the upper limit on the number of values an array can hold?
+- 4.29 billion elements
+
+When working with arrays, does working "in-place" really matter? if so, when and why?
+- working in place allows you to swap values, and grow or shrink the current array without requiring a copy of the array which takes more storage
+
+Which values are "falsey" in JavaScript, and what does "falsey" mean anyway?
+- 0, "", false, NAN, null, and undefined
+- that these three values when cast to boolean will equate to false
+
+What does "passing by reference" mean?
+- you are not working with a copy, and any changes are made to the original object or array
