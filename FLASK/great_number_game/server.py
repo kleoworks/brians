@@ -10,7 +10,7 @@ def index():
 
     # set the initial random number per session
     if 'random_num' not in session:
-        session['random_num'] = random.randint(1,101)
+        session['random_num'] = random.randint(1,100)
 
     try:
         # check the user guess
