@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: monospace;
+}
+
+.wrapper {
+
+    width: 930px;
+    margin: 0 auto;
+    padding: 20px;
+
+}
+
+.gold {
+    margin-bottom: 20px;
+}
+
+
+    .gold p {
+        display: inline-block;
+        line-height: 20px;
+    }
+
+    .gold p:last-child {
+        width: 135px;
+        border: 1px solid black;
+        padding-left: 8px;
+    }
+
+.building {
+
+    width: 200px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+}
+
+.building p, .building h3 {
+    margin: 15px 0px;
+}
+
+.building input[type="submit"] {
+
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    margin: 20px auto;
+    width: 75px;
+    height: 20px;
+    background-color: white
+
+}
+
+.activities {
+    width: 872px;
+    height: 100px;
+    padding: 8px;
+    border: 1px solid black;
+    overflow-y: scroll;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
