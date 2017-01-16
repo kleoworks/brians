@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 4em;
+    color: red;
+}
+
+.wrapper {
+    margin: 20px auto;
+    width: 680px;
+    padding: 20px;
+
+}
+
+div.turtle {
+    margin: 0px auto 20px auto;
+}
+
+h1, h3, p {
+    text-align: center;
+}
+
+img {
+    height: 300px;
+
+}
+
+h3 {
+    color: purple;
+}
+
+.black {
+    color: black;
+}
+
+.blue {
+    color: #006790;
+}
+
+.orange {
+    color: #F8A021;
+}
+
+.red {
+    color: #E13B3F;
+}
+
+.purple {
+    color: #7082C3;
+}
