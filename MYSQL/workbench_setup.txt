@@ -1,0 +1,10 @@
+USE twitter;
+SELECT * FROM users;
+INSERT INTO users (first_name, last_name, handle, birthday, created_at, updated_at)
+VALUES ('b', 's', 'bs', '1/1/1900', NOW(), NOW());
+SELECT * FROM users;
+# CORRECT USER BIRTHDAY DUE TO INVALID INPUT
+UPDATE users SET birthday=19000101 WHERE users.id=6;
+SELECT * FROM users;
+DELETE FROM users WHERE users.id=5;
+SELECT * FROM users;
