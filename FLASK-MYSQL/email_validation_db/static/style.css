@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: monospace;
+}
+
+.wrapper {
+    width: 400px;
+    margin: 40px auto;
+}
+
+div.wide {
+
+    width: 500px;
+
+}
+
+label {
+    display: block;
+    width: 100%;
+}
+
+input[type='text'] {
+    margin-left: 12px;
+    width: 260px;
+    height: 20px;
+    border: 1px solid black;
+    font-family: inherit;
+    font-size: 1.2em;
+    padding-left: 12px;
+}
+
+/*default styling for all submit buttons*/
+input[type='submit'] {
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    height: 20px;
+    width: 60px;
+
+}
+
+    input.btn-add {
+        margin-top: 20px;
+        margin-left: 320px;
+    }
+
+    input.btn-delete {
+        /*no additional styling needed yet*/
+    }
+
+
+.message {
+    width: 60%;
+    margin: 20px auto;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+    div.error {
+        background-color: #cf2a27;
+        color: white;
+
+    }
+
+
+    div.success {
+        width: 80%;
+        background-color: #64a85a;
+        color: black;
+    }
+
+    .delete {
+        color: red;
+    }
+
+
+
+.log {
+    margin-bottom: 12px;
+}
+
+.log p, .log input {
+    display: inline-block;
+
+}
+
+    .col1 {
+        margin-left: 20px;
+        width: 50%;
+    }
+    .col2 {
+        width: 30%;
+    }
+
+
+.underline {
+    text-decoration: underline;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Email Validation</title>
+        <link rel="stylesheet" href="../static/style.css">
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            {% if session['message'] == 'error' %}
+
+                <div class="message error">
+                    <p>Email is not valid!</p>
+                </div>
+
+            {% endif %}
+
+            <form action="/add_email" method="POST">
+                <label for="email">Email Address:<input id='email' type="text" name="email"></label>
+                <input class="btn-add" type="submit" value="Submit">
+            </form>
+
+
+        </div>
+
+    </body>
+</html>

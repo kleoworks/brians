@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Success Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="wrapper wide">
+
+            {% if session['message'] == 'added_record' %}
+
+                <div class="message success">
+                    <p>The email address you entered ({{ session['email'] }}) is a VALID email address! Thank you!</p>
+                </div>
+
+            {% elif session ['message'] == 'deleted_record' %}
+
+                <div class="message success">
+                    <p>The email address <span class="delete">({{ session['email'] }})</span> was deleted!</p>
+                </div>
+
+            {% endif %}
+
+
+            <h3 class="underline">Email Addresses Entered:</h3>
+
+
+            {% if all_emails %}
+
+                {% for record in all_emails %}
+
+                    <form action="/remove_email" method="POST">
+                        <div class="log">
+                            <p class="col1">{{ record['email'] }}</p>
+                            <p class="col2">{{ record['created_at'] }}</p>
+                            <input type="hidden" name="delete" value="{{ record['id']}}">
+                            <input class="btn-delete" type="submit" value="Delete">
+                        </div>
+                    </form>
+
+                {% endfor %}
+
+            {% else %}
+                <div class="log">
+                    <p class="col1">none left -- woops!</p>
+                </div>
+            {% endif %}
+
+        </div>
+    </body>
+</html>
