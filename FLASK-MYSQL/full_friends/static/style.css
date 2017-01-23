@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+hr {
+    border-color: pink;
+    border-style: solid;
+}
+
+.wrapper {
+
+    width: 600px;
+    padding: 20px 20px;
+    margin: 0 auto;
+
+}
+
+.record {
+    width: 100%;
+    margin-top: 12px;
+}
+
+    .record div, form div {
+
+        display: inline-block;
+
+    }
+
+    .col1 {
+        margin-left: 12px;
+        width: 30%;
+    }
+
+    .col2 {
+        width: 30%;
+    }
+
+    .col3 {
+        text-align: center;
+        width: 15%;
+    }
+
+    .col4 {
+        text-align: center;
+        width: 15%;
+    }
+
+label {
+    display: block;
+    margin-top: 12px;
+
+}
+
+
+input[type="submit"] {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    height: 20px;
+    width: 60px;
+}
+
+input[type="text"] {
+    margin-bottom: 12px;
+    height: 20px;
+    padding-left: 4px;
+}
+
+.update input[type="text"] {
+    margin-bottom: 12px;
+    height: 20px;
+    display: block;
+    padding-left: 4px;
+    width: 300px;
+}
