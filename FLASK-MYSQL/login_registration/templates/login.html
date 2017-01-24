@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            <h2>LOGIN</h2>
+
+            <form action="/login" method="POST">
+                <label for="email" id="email">Email:</label>
+                <input type="text" name="email" placeholder="email">
+                <label for="password">Password:</label>
+                <input type="password" name="password" placeholder="password">
+                <input class="btn" type="submit" name="submit" value="SUBMIT">
+            </form>
+
+            <div class="login message">
+            {% if session['login_msg'] %}
+
+                {% for message in session['login_msg'] %}
+                    <p class="login error"> {{ message }}</p>
+                {% endfor %}
+
+            {% endif %}
+            <p>Please register <a href="/register">here</a></p>
+            </div>
+
+        </div>
+
+    </body>
+</html>
