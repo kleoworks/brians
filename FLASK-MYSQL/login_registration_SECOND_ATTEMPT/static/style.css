@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+.wrapper {
+
+    width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid black;
+
+}
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+form {
+    width: 100%;
+}
+
+input {
+    font-size: 1.2em;
+    height: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid grey;
+    padding-left: 4px;
+    display: block;
+
+}
+
+    input.btn {
+        margin-top: 20px;
+        height: 30px;
+        border: none;
+    }
+
+
+    input[type="submit"] {
+        background-color: black;
+        color: white;
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+
+.welcome {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+
+.welcome p {
+    color: pink;
+}
+
+.message p {
+    text-align: center;
+    margin-top: 8px;
+}
+
+    .message a {
+        color: black;
+    }
+
+
+    .error {
+        color: red;
+    }

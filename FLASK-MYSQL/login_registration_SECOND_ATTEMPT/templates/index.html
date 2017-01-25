@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Welcome Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="welcome">
+                <h2>WELCOME {{ session['user']['first_name'] }} {{ session['user']['last_name'] }}</h2>
+                <p>Enjoy this super useful site, and give me all your personal information, so that I can query data on you and sell you toilet paper when you run out!</p>
+            </div>
+            <form action="/logout" method="POST">
+                <input type="submit" name="submit" value="LOG OUT">
+            </form>
+        </div>
+    </body>
+</html>
