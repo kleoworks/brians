@@ -1,0 +1,213 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+
+/*main wall page*/
+.page_wrapper {
+    width: 100%
+}
+
+.header {
+    padding: 12px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+}
+
+    .nav {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+        .nav h2, .nav p {
+            display: inline-block;
+        }
+
+        .nav p {
+            text-align: right;
+        }
+
+        .nav a {
+            color: #009ccc;
+
+        }
+
+        .col1 {
+            width: 50%;
+        }
+
+        .col2 {
+            width: 30%;
+        }
+
+        .col3 {
+            width: 15%
+
+        }
+
+/*content wrapper for posts and comments*/
+.content {
+    margin: 0 auto;
+    padding: 20px;
+    width: 800px;
+
+}
+
+    textarea {
+        width: 780px;
+        height: 60px;
+        border: 1px solid black;
+        resize: none;
+        padding: 4px;
+        box-sizing: border-box;
+
+    }
+
+    .post_new_message {
+        width: 780px;
+    }
+
+    .all_messages {
+        width: 780px;
+    }
+
+        .all_messages p.message {
+            margin-left: 12px;
+        }
+
+        div.comments {
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+
+            .comments {
+                margin-left: 20px;
+                width: 760px;
+            }
+
+            .comments textarea {
+                height: 30px;
+                width: inherit;
+            }
+
+            div.comments p:last-of-type {
+                margin-top: 12px;
+                margin-bottom: 4px;
+            }
+
+
+        p.user {
+            margin-top: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        p.user a {
+            color: red;
+            font-size: .85em;
+        }
+
+    /*form submit btn positions*/
+    .post_new_message form, .all_messages form, .comments form {
+        position: relative;
+        left: 85%;
+        width: 15%;
+    }
+
+    .content input[type="submit"] {
+        width: 100%;
+        height: 18px;
+        border: 1px solid black;
+        box-shadow: 2px 2px black;
+        box-sizing: border-box;
+
+    }
+
+        input.add_message {
+            background-color: #2b78e4;
+        }
+
+        input.delete_message {
+            background-color: #e33c2f;
+        }
+
+        input.add_comment {
+            background-color: #009e0f;
+        }
+
+
+/*login and registration pages*/
+.wrapper {
+
+    width: 500px;
+    margin: 40px auto;
+    border: 1px solid black;
+    padding: 20px;
+
+}
+
+
+.wrapper h2, .wrapper p {
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.wrapper a {
+    color: black;
+}
+
+div.message p {
+    text-align: center;
+}
+
+.alert {
+    color: red;
+}
+
+.wrapper form {
+
+    width: 100%;
+
+}
+
+.wrapper form input {
+    width: 100%;
+    height: 30px;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid black;
+    font-size: 1.2em;
+
+}
+
+.wrapper input[type="text"], .wrapper input[type="password"] {
+
+
+    padding-left: 4px;
+
+}
+
+.wrapper input[type="submit"] {
+
+    height: 40px;
+
+}
+
+.btn {
+
+    height: 30px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border: none;
+
+}
