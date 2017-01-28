@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Users Index</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <h1>Users</h1>
+
+            <div class="table">
+
+                <div class="row head">
+                    <div class="col1"><p>id</p></div>
+                    <div class="col2"><p>Full Name</p></div>
+                    <div class="col3"><p>Email</p></div>
+                    <div class="col4"><p>Created At</p></div>
+                    <div class="col5"><p>Actions</p></div>
+                </div>
+
+                {% if users %}
+                    {% for user in users %}
+                    <div class="row">
+                        <div class="col1"><p>{{ user['id'] }}</p></div>
+                        <div class="col2"><p>{{ user['full_name'] }}</p></div>
+                        <div class="col3"><p>{{ user['email'] }}</p></div>
+                        <div class="col4"><p>{{ user['created_at'] }}</p></div>
+                        <div class="col5">
+                            <p><a href="/users/{{ user['id'] }}">Show</a> <a href="/users/{{ user['id'] }}/edit">Edit</a> <a href="/users/{{ user['id'] }}/destroy">Delete</a></p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+
+            <p><a href="/users/new">Add a new user</a></p>
+
+        </div>
+
+    </body>
+</html>

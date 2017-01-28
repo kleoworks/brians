@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Edit Users {{ user['id'] }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Edit User {{ user['id'] }}</h1>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="alert">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form action="/users/{{ user['id'] }}" method="POST">
+                <label for="first_name">First name:</label>
+                <input type="text" name="first_name" value="{{ user['first_name'] }}">
+                <label for="last_name">Last name:</label>
+                <input type="text" name="last_name" value="{{ user['last_name'] }}">
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="{{ user['email'] }}">
+                <input class="btn" type="submit" value="Update">
+            </form>
+            <p><a href="/users/{{ user['id'] }}">Show</a> | <a href="{{ session['last_page'] }}">Go Back</a></p>
+        </div>
+    </body>
+</html>
