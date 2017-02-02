@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Date and Time</title>
+        <style media="screen">
+            * {
+                margin: 0;
+                padding: 0;
+                font-family: monospace;
+            }
+
+            .wrapper {
+                width: 500px;
+                padding: 40px;
+                margin: 0 auto;
+            }
+
+            .large {
+                font-size: 2em;
+            }
+
+            .date_time {
+                margin: 12px auto;
+                padding: 8px 0px;
+                width: 450px;
+                height: 80px;
+            }
+
+            .border {
+                border: 1px solid black;
+            }
+
+            p.border {
+                width: 210px;
+                height: 30px;
+                margin: 0 auto;
+                vertical-align: top;
+            }
+
+            p {
+                text-align: center;
+            }
+
+
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <p class="border">The current time and date:</p>
+            <div class="date_time border">
+                <p class="large">{{ date }}</p>
+                <p class="large">{{ time }}</p>
+            </div>
+        </div>
+    </body>
+</html>
