@@ -75,11 +75,22 @@
                     background-color: #2b78e4;
                     margin-left: 80%;
                 }
+
+                p.error {
+                    color: red;
+                    text-align: center;
+                    margin-bottom: 8px;
+                }
         </style>
     </head>
     <body>
         <div class="wrapper">
             <div class="survey">
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="error">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
                 <form action="/surveys/process" method="POST">
                     {% csrf_token %}
                     <label class="col1" id="name" for="name">Your Name:</label>

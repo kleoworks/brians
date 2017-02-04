@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+p {
+    margin-bottom: 8px;
+}
+
+.wrapper {
+
+    margin: 20px auto;
+    width: 950px;
+}
+
+.gold p {
+    display: inline-block;
+    line-height: 20px;
+}
+
+
+    p.amount {
+        margin-left: 20px;
+        padding-left: 8px;
+        width: 100px;
+        border: 1px solid silver;
+    }
+
+    div.building {
+        width: 20%;
+        margin-right: 20px;
+        margin-bottom: 12px;
+        padding: 20px 8px;
+        border: 1px solid silver;
+        display: inline-block;
+        text-align: center;
+    }
+
+        .building p:first-of-type {
+            font-size: 1.2em;
+        }
+
+        form .btn {
+            margin-top: 20px;
+            width: 80px;
+            height: 25px;
+            background-color: #e2d505;
+            border: 1px solid #fbf267;
+            box-shadow: 2px 2px silver;
+        }
+
+
+    div.activities {
+        border: 1px solid silver;
+        width: 904px;
+        height: 180px;
+        padding: 4px;
+        overflow: scroll;
+    }
+
+        .activities p {
+            margin-bottom: 4px;
+            font-size: .85em;
+        }
+
+        p.won {
+            background: #7bfb67;
+        }
+
+        p.loss {
+            color: #fb6779;
+        }
