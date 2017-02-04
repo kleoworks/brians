@@ -1,0 +1,45 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+
+}
+
+.wrapper {
+
+    margin: 20px auto;
+    width: 400px;
+
+}
+
+p {
+    text-align: center;
+    font-size: 2em;
+    font-style: italic;
+    margin-bottom: 8px;
+}
+
+p.orange {
+    color: #ffa15b;
+}
+
+p.blue {
+    color: #09a9e3;
+}
+
+p.purple {
+    color: #aa98c2;
+}
+
+p.red {
+    color: #ee4735;
+}
+
+img {
+
+    width: 400px;
+    height: 400px;
+    margin-bottom: 12px;
+
+}
