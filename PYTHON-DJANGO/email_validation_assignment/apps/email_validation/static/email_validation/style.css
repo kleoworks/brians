@@ -1,0 +1,102 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+
+}
+
+.wrapper {
+
+    width: 600px;
+    padding: 40px;
+
+}
+
+div.flash {
+    width: 300px;
+    margin: 20px auto;
+    border: 1px solid black;
+
+}
+
+    p.message {
+        padding: 4px;
+        text-align: center;
+    }
+
+        div.error {
+            background-color: #cf2a27;
+            color: white;
+        }
+
+        div.error p {
+            font-size: 1.2em;
+        }
+
+
+        div.success {
+
+            background-color: #64a85a;
+            color: black;
+        }
+
+
+.email_form {
+
+    width: 500px;
+    margin: 0 auto;
+
+}
+
+    label {
+        width: 25%;
+        display: inline-block;
+    }
+
+    input[type="text"] {
+        width: 70%;
+        border: 1px solid black;
+        height: 20px;
+        display: inline-block;
+        padding: 0px 4px;
+    }
+
+    .btn {
+        padding: 4px 8px;
+        background-color: white;
+        border: 1px solid black;
+        box-shadow: 2px 2px black;
+        margin-top: 20px;
+        margin-left: 420px;
+        display: block;
+    }
+
+
+.results {
+    margin: 0 auto;
+    width: 90%;
+
+}
+
+p.underline {
+    text-decoration: underline;
+    margin-bottom: 8px;
+}
+
+div.record {
+    margin-left: 12px;
+}
+
+div.record p {
+
+    width: 40%;
+    display: inline-block;
+    margin-right: 4px;
+
+}
+
+div.record a {
+
+    color: #cf2a27;
+}
