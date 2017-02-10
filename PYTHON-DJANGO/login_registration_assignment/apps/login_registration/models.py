@@ -28,7 +28,7 @@ class UserManager(models.Manager):
         if postData['email'] == "" or postData['password'] == "" or not User.objects.filter(email=postData['email']):
             return False
 
-        # store user object from DB (will be empty if no email found)
+        # store user object from DB
         user = User.objects.filter(email=postData['email'])
 
         # if the password submitted does not match the hashed PW in DB return False, do not login
