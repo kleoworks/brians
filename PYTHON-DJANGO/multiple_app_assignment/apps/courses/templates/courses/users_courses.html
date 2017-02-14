@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>User Courses</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'courses/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <form action="{% url 'courses:users_courses' %}" method="POST">
+                {% csrf_token %}
+                <select name="user">
+                    <option value="" selected>Select User</option>
+                    {% if users %}
+                        {% for user in users %}
+                            <option value="{{ user.id }}">{{ user.first_name }} {{ user.last_name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <select name="course">
+                    <option value="" selected>Select Course</option>
+                    {% if courses %}
+                        {% for course in courses %}
+                            <option value="{{ course.id }}">{{ course.name }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <input class="btn add_user_to_course" type="submit" value="Add User to Course">
+            </form>
+            <table class="user_course_table">
+                <tr>
+                    <thead>
+                        <td class="col1">Course</td>
+                        <td class="col2">Title</td>
+                        <td class="col3">Number of Users</td>
+                    </thead>
+                </tr>
+                <tbody>
+                    {% if courses %}
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.id }}</td>
+                            <td>{{ course.name }}</td>
+                            <td>{{ course.num_users }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <a class="return" href="{% url 'courses:index' %}">&#8249;Return Home</a>
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Multiple Apps</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'multiple_apps/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h2>Multiple Apps</h2>
+            <a class="teal" href="{% url 'login_registration:index' %}">Login &amp; Registration and Courses</a>
+            <a href="{% url 'timedisplay:index' %}">Time Display</a>
+            <a href="{% url 'disappearing_ninjas:show_all' %}">Disappearing Ninjas</a>
+            <a href="{% url 'survey_form:index' %}">Survey Form</a>
+        </div>
+    </body>
+</html>

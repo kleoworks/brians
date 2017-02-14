@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ name }}</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'disappearing_ninjas/css/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+
+            {% if kind == 'turtle' %}
+                <p class="{{ color }}">{{ name }}</p>
+                <img src="/static/disappearing_ninjas/images/{{ color }}.jpg" alt="{{ color }}">
+            {% else %}
+                <p>{{ name }}</p>
+                <img src="/static/disappearing_ninjas/images/fox.jpg" alt="fox">
+            {% endif %}
+
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+}
+
+.wrapper {
+    width: 500px;
+    padding: 20px;
+}
+
+h2 {
+    margin-bottom: 12px;
+}
+
+label {
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+}
+
+input[type="text"], input[type="password"] {
+    width: 300px;
+    border: 1px solid black;
+    padding-left: 4px;
+    margin-left: 12px;
+    margin-bottom: 8px;
+    font-size: 1.2em;
+}
+
+
+.btn {
+    box-sizing: border-box;
+    width: 72px;
+    padding: 4px 8px;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    background-color: #587eaa;
+    color: white;
+    margin-left: 352px;
+    margin-bottom: 20px;
+}
+
+div.message {
+
+    margin-bottom: 12px;
+
+}
+
+.success {
+    color: #0ea368;
+}
+
+.error {
+    color: red;
+}
+
+
+.link {
+    font-size: 1.2em;
+    text-decoration: none;
+    color: black;
+    display: block;
+}

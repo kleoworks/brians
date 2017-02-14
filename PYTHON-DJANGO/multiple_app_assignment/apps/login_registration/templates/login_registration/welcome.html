@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Login &amp; Reg | Success</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'login_registration/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h2>Success! Welcome {{ request.session.user.first_name }}!</h2>
+            {% if messages %}
+            <div class="message">
+                {% for message in messages %}
+                    <p class="success">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <a class="link" href="{% url 'courses:index' %}">> Continue to Courses</a>
+            <a class="link" href="{% url 'login_registration:logout' %}">> Log Out</a>
+        </div>
+    </body>
+</html>
