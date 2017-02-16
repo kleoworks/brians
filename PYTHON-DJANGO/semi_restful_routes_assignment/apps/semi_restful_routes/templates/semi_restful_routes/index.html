@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>All Products | Semi Restful Routes Demo</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'semi_restful_routes/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h3>Products</h3>
+            {% if messages %}
+            <div class="flash_message">
+                {% for message in messages %}
+                    {% if message.tags %}
+                        <p class="{{ message.tags }}">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <table>
+                <tr>
+                    <thead>
+                        <td class="col1">Name</td>
+                        <td class="col2">Description</td>
+                        <td class="col3">Price</td>
+                        <td class="col4">Actions</td>
+                    </thead>
+                </tr>
+                <tbody>
+                    {% if products %}
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>${{ product.price }}</td>
+                            <td>
+                                <div class="table_links">
+                                    <a href="{% url 'products:show' id=product.id %}">Show</a> | <a href="{% url 'products:edit' id=product.id %}">Edit</a>
+                                    <form action="{% url 'products:destroy' id=product.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <input class="btn" type="submit" value="Remove">
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <a href="{% url 'products:new' %}">Add a new product</a>
+        </div>
+    </body>
+</html>

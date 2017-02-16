@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Product {{ product.id }} Info | Semi Restful Routes Demo</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'semi_restful_routes/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h3>Product {{ product.id }}</h3>
+            <div class="show_product">
+                <p>Name:</p>
+                <p>{{ product.name }}</p>
+            </div>
+            <div class="show_product">
+                <p>Description:</p>
+                <p>{{ product.description }}</p>
+            </div>
+            <div class="show_product">
+                <p>Price</p>
+                <p>{{ product.price }}</p>
+            </div>
+            <div class="links">
+                <a href="{% url 'products:edit' id=product.id %}">Edit</a> | <a href="{{ request.META.HTTP_REFERER }}">Back</a>
+            </div>
+        </div>
+    </body>
+</html>
