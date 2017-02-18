@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dojo Secrets</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'login_registration/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+            {% for user in users %}
+                <p>{{ user.first_name }} {{ user.email }}</p>
+            {% endfor %}
+
+            <div class="login_registration_form">
+                <p class="form_heading">Register</p>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        {% if message.tags == 'registration error' %}
+                        <p class="{{ message.tags }}">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <form action="{% url 'login_registration:create' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="first_name">First name</label>
+                    <input type="text" name="first_name">
+                    <label for="last_name">Last name</label>
+                    <input type="text" name="last_name">
+                    <label for="email">E-mail</label>
+                    <input type="text" name="email">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <label for="confirm_password">Confirm password</label>
+                    <input type="password" name="confirm_password">
+                    <input class="btn" type="submit" value="Register">
+                </form>
+            </div>
+
+
+            <div class="login_registration_form">
+                <p class="form_heading">Log In</p>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        {% if message.tags == 'login error' %}
+                        <p class="{{ message.tags}}">{{ message}}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <form action="{% url 'login_registration:login' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="email">E-mail</label>
+                    <input type="text" name="email">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input class="btn" type="submit" value="Login">
+                </form>
+            </div>
+
+        </div>
+    </body>
+</html>

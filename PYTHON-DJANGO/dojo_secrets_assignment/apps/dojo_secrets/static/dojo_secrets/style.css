@@ -1,0 +1,73 @@
+* {
+
+    margin: 0;
+    padding: 0;
+    font-family: monospace;
+
+}
+
+.wrapper {
+
+    margin: 20px;
+}
+
+h1{
+    margin-bottom: 12px;
+}
+
+h1 a {
+    font-size: .5em;
+}
+
+form {
+
+    width: 80px;
+    display: inline-block;
+
+}
+
+textarea {
+    padding: 4px;
+    width: 300px;
+    height: 75px;
+    border: 1px solid black;
+    resize: none;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+}
+
+.btn {
+
+    padding: 4px 8px;
+    border: 1px solid black;
+    box-shadow: 2px 2px black;
+    background-color: white;
+
+}
+
+
+.user_actions {
+
+    margin-bottom: 12px;
+}
+
+a {
+
+    color: #4374a6
+}
+
+div.secrets p {
+    margin-left: 8px;
+    margin-bottom: 20px;
+}
+
+
+div.messages {
+
+    margin-bottom: 12px;
+
+}
+
+    .error {
+        color: red;
+    }

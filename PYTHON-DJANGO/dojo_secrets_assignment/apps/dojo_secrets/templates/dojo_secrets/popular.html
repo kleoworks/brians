@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dojo Secrets</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'dojo_secrets/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <h1>Most Popular Secrets... <a href="{% url 'dojo_secrets:index' %}">Back</a></h1>
+
+            <div class="secrets">
+                {% if all_secrets %}
+
+                    {% for secret in all_secrets %}
+
+                            {% for user_secret in user_secrets %}
+
+                                {% if user_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <b>You posted this</b> <a href="{% url 'dojo_secrets:destroy' secret_id=secret.id %}">Delete</a></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for liked_secret in liked_secrets %}
+
+                                {% if liked_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <b>You liked this</b></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for other_secret in other_secrets %}
+
+                                {% if other_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <a href="{% url 'dojo_secrets:like' secret_id=secret.id %}">Like</a></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+
+        </div>
+    </body>
+</html>

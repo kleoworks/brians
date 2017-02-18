@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Dojo Secrets</title>
+        {% load staticfiles %}
+        <link rel="stylesheet" href="{% static 'dojo_secrets/style.css' %}">
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <h1>Hello, {{ request.session.user.first_name }}! <a href="{% url 'login_registration:logout' %}">Logout</a></h1>
+
+            <textarea name="secret" form="secret_form" placeholder="Your secret here..."></textarea>
+
+            {% if messages %}
+                <div class="messages">
+                {% for message in messages %}
+                    {% if message.tags %}
+                        <p class="{{ message.tags }}">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="user_actions">
+                <form id="secret_form" action="{% url 'dojo_secrets:create' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn" type="submit" value="Post">
+                </form>
+                <a href="{% url 'dojo_secrets:popular' %}">Most Popular Secrets</a>
+            </div>
+
+            <h1>Recent Secrets...</h1>
+            <div class="secrets">
+                {% if all_secrets %}
+
+                    {% for secret in all_secrets %}
+
+                            {% for user_secret in user_secrets %}
+
+                                {% if user_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <b>You posted this</b> <a href="{% url 'dojo_secrets:destroy' secret_id=secret.id %}">Delete</a></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for liked_secret in liked_secrets %}
+
+                                {% if liked_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <b>You liked this</b></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                            {% for other_secret in other_secrets %}
+
+                                {% if other_secret.id == secret.id %}
+                                    <p>{{ secret.content }} ({{ secret.created_at|timesince }} ago) <em>{{ secret.num_likes }} likes</em> <a href="{% url 'dojo_secrets:like' secret_id=secret.id %}">Like</a></p>
+                                {% endif %}
+
+                            {% endfor %}
+
+                    {% endfor %}
+
+                {% endif %}
+            </div>
+
+        </div>
+    </body>
+</html>
